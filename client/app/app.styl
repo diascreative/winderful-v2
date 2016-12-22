@@ -1,0 +1,33 @@
+@import '../components/_variables.styl'
+
+/*
+ * Layout
+ */
+h1
+h2
+h3
+h4
+h5
+  color $font-color-primary
+  font normal normal 18px/22px $font-primary
+  letter-spacing .3px
+  margin 0
+  padding 0
+
+h4
+  border-bottom solid 1px $font-color-primary
+  font-size 18px
+  letter-spacing -.09px
+  line-height 22px
+  margin 20px 0 8px
+  padding 0 0 2px
+
+p
+  margin 12px 0
+
+// Component styles are injected through grunt
+/* inject:styl */
+@import 'main/main.styl';
+@import '../components/_graph.styl';
+@import '../components/about.styl';
+/* endinject */

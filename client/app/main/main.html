@@ -1,0 +1,25 @@
+<div class="main-content main-copy">
+  <header class="intro-text">
+    We're mapping renewable energy projects across Oxfordshire, starting
+    with installations belonging to the Low Carbon Hub and some of our partners.
+  </header>
+
+  <p>
+    We have
+    <span class="large-text" ng-bind-html="$ctrl.getFilteredInstallations()">39</span>
+    installations plugged into the People's Power Station so far.
+  </p>
+
+  <p>
+    Together they can generate
+    <span class="large-text" ng-bind-html="$ctrl.getFilteredTotalYearlyGeneration()">
+      1.74 <span class="units">MWh</span></span> each year - enough to meet
+    <span class="large-text" ng-bind-html="($ctrl.getTotalYearlyGeneration() / $ctrl.getStatExample(0).consumption) | number:0">109</span>
+    people's share of Oxfordshire's energy demands.
+  </p>
+
+  <p>
+    <a href="#" ng-click="$ctrl.showFilters = !$ctrl.showFilters">Explore the map</a>
+    to find what's happening near you.
+  </p>
+</div>

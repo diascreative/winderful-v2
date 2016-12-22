@@ -1,0 +1,87 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <base href="/admin">
+    <title>winderful Interactive :: Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) admin-app/vendor.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+      <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.css" />
+      <link rel="stylesheet" href="bower_components/rickshaw/rickshaw.css" />
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) admin-app/admin-app.css -->
+      <link rel="stylesheet" href="admin-app/admin-app.css">
+      <!-- injector:css -->
+      <!-- endinjector -->
+    <!-- endbuild -->
+  </head>
+  <body ng-app="winderfulAppAdmin">
+    <!--[if lt IE 7]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <navbar></navbar>
+
+    <!-- Add your site or application content here -->
+    <div class="container">
+      <div ui-view>Admin interface</div>
+    </div>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+
+
+    <!-- build:js({client,node_modules}) admin-app/vendor.js -->
+      <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-socialshare/dist/angular-socialshare.min.js"></script>
+      <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+      <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
+      <script src="bower_components/d3/d3.js"></script>
+      <script src="bower_components/rickshaw/rickshaw.js"></script>
+      <script src="bower_components/angular-rickshaw/rickshaw.js"></script>
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js(.tmp) admin-app/admin-app.js -->
+      <script src="admin-app/admin-app.js"></script>
+      <!-- injector:js -->
+      <script src="admin-app/components/auth/auth.module.js"></script>
+      <script src="admin-app/components/util/util.module.js"></script>
+      <script src="admin-app/components/navbar/navbar.directive.js"></script>
+      <script src="admin-app/components/auth/interceptor.service.js"></script>
+      <script src="admin-app/components/auth/router.decorator.js"></script>
+      <script src="admin-app/components/auth/user.service.js"></script>
+      <script src="admin-app/components/navbar/navbar.controller.js"></script>
+      <script src="admin-app/app.constant.js"></script>
+      <script src="admin-app/components/auth/auth.service.js"></script>
+      <script src="admin-app/components/util/util.service.js"></script>
+      <script src="admin-app/installation/installation.controller.js"></script>
+      <script src="admin-app/installation/installation.js"></script>
+      <script src="admin-app/installations/installations.controller.js"></script>
+      <script src="admin-app/installations/installations.js"></script>
+      <script src="admin-app/login/login.controller.js"></script>
+      <!-- endinjector -->
+    <!-- endbuild -->
+  </body>
+</html>

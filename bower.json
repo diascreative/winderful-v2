@@ -1,0 +1,23 @@
+{
+  "name": "winderful--interactive",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "bootstrap": "~3.1.1",
+    "angular-resource": "~1.5.0",
+    "angular-cookies": "~1.5.0",
+    "angular-sanitize": "~1.5.0",
+    "font-awesome": ">=4.1.0",
+    "lodash": "~4.14.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-validation-match": "~1.5.2",
+    "moment": "momentjs#^2.14.1",
+    "angular-socialshare": "angularjs-socialshare#^2.2.7",
+    "angular-file-upload": "^2.3.4",
+    "angular-ui-notification": "^0.2.0",
+    "angular-rickshaw": "^0.11.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.5.0"
+  }
+}

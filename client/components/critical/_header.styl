@@ -1,0 +1,239 @@
+/*=============================================
+=            Header                           =
+=============================================*/
+.main-header
+  height calc(100vh - 120px)
+  max-height 725px
+  padding 12px 20px
+  position relative
+
+  .embedded &
+    height calc(100vh - 60px)
+    max-height none
+
+.logo-section
+  position relative
+  z-index 100
+
+.main-title
+  font-size 48px
+  font-weight 500
+  line-height 48px
+  text-transform uppercase
+
+  a
+    color #fff
+    text-decoration none
+
+/*=============================================
+=            Navigation                       =
+=============================================*/
+.main-nav
+  position absolute
+  right 20px
+  top 14px
+  z-index 200
+
+  a
+    color #fff
+    display inline-block
+    font-weight 500
+    margin 0 0 0 14px
+    text-decoration none
+    vertical-align middle
+
+/*=============================================
+=            Intro copy                       =
+=============================================*/
+.intro
+  font-size 18px
+  line-height 20px
+  max-width 360px
+  padding 15px 0
+  position relative
+  width 33%
+  z-index 200
+
+  @media (max-height: $height--short) and (min-width: $width--mobile)
+    display none
+
+  @media $mobile
+    display none
+
+  p
+    margin 22px 0
+
+  .strapline
+    max-width 286px
+
+/*=============================================
+=            Stats                       =
+=============================================*/
+.stats
+  color $font-color-primary
+  font-weight bold
+  overflow hidden
+  position absolute
+  transition all .3s ease-out
+  z-index 200
+
+@media $not-mobile
+  .stats
+    color #fff
+    max-width 240px
+    position absolute
+    right 20px
+    text-align right
+    text-shadow 0 0 2px rgba($color-primary, .9)
+    top 100px
+
+  .stats__right-now
+    font-size 24px
+    line-height 25px
+
+  .stats__current-demand
+    border dashed 1px #fff
+    border-left 0
+    border-right 0
+    margin 10px 0 8px
+    padding-bottom 12px
+
+  .stats__current-demand
+  .stats__equivalent
+    font-size 14px
+    line-height 18px
+
+  .stats__equivalent
+    opacity 0
+    transform translateY(100%)
+    transition transform .8s ease-out, opacity .6s ease-out, visibility .6s ease-out
+    visibility hidden
+
+    .stats-loaded &
+      opacity 1
+      transform translateY(0)
+      visibility visible
+
+  .large-copy
+    display block
+    font-size 36px
+    line-height 43px
+
+    .small
+      font-size 20px
+
+@media $desktop--large
+  .stats
+    left calc(50% + 400px)
+
+@media (max-width: ($width--mobile - 1)), (max-height: $height--short)
+  .stats
+    bottom 0
+    left 0
+    overflow hidden
+    right 0
+    top 12vh
+
+  .stats__right-now
+  .stats__equivalent
+    // animation 3s linear infinite clouding-about alternate
+    background url(/assets/images/cloud.svg) 100% 0 no-repeat
+    background-size cover
+    font-size 16px
+    font-weight normal
+    left 0
+    line-height 18px
+    min-height 140px
+    opacity 0
+    padding 30px 52px 20px 10px
+    position absolute
+    transform translateX(-100%)
+    transition transform .8s ease-out, opacity .6s ease-out, visibility .6s ease-out
+    visibility hidden
+
+    .stats-loaded &
+      opacity 1
+      transform translateX(0)
+      visibility visible
+
+  // .stats__equivalent
+  //   animation 5s 2s linear infinite clouding-about alternate
+
+  .stats__equivalent
+    background-position 0 0
+    left auto
+    margin 160px 0 0 0
+    max-width 206px
+    min-height 130px
+    padding 35px 10px 30px 48px
+    right 0
+    text-align right
+    transform translateX(100%)
+    transition-delay .4s
+
+    .large-copy
+      display inline-block
+
+  .stats__current-demand
+    display none
+
+  .large-copy
+    display block
+    font-size 20px
+    line-height 24px
+
+    .small
+      font-size 16px
+
+@media (max-height: 558px)
+  .main-header
+    height calc(100vh - 40px)
+
+    .ios &
+      height calc(100vh - 80px)
+
+  .stats__equivalent
+    margin-top 24vh
+
+@media (max-height: 480px)
+  .main-header
+    height 100vh
+
+    .ios &
+      height calc(100vh - 40px)
+
+@media (max-height: $height--short) and (min-width: $width--mobile)
+  .stats
+    max-width none
+
+.pre--large-copy
+  padding-top 8px
+
+  @media $not-mobile
+    padding-top 16px
+
+  @media (max-width: ($width--mobile - 1)), (max-height: $height--short)
+    padding-top 10px
+
+
+.landscape
+  bottom 0
+  height 100vh
+  left 0
+  position absolute
+  right 0
+
+  &--front
+    will-change transform
+    z-index 100
+
+  &--second
+    will-change transform
+    z-index 90
+
+  img
+    bottom 0
+    height auto
+    left 0
+    position absolute
+    width 100%

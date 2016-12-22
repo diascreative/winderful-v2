@@ -1,0 +1,56 @@
+@import '../components/_variables.styl'
+
+[ng\:cloak]
+[ng-cloak]
+[data-ng-cloak]
+[x-ng-cloak]
+.ng-cloak
+.x-ng-cloak
+  display none !important
+
+body,
+html
+  margin 0
+  padding 0
+
+body
+  background linear-gradient(rgb(0, 90, 107) 1%, rgb(0, 135, 160) 13%, rgb(51, 195, 221) 69%, rgb(153, 225, 238) 100%) 0px 0px
+  color #fff
+  font-family $font-primary
+  font-size 14px
+  line-height calc(1em + 4px)
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+
+  &.embedded
+    overflow hidden
+
+*
+  box-sizing border-box
+
+.hide-not-xs
+  @media $not-mobile
+    display none !important
+
+.hide-xs
+  @media $mobile
+    display none !important
+
+a
+  color #fff
+  opacity .5
+  text-decoration none
+  transition .3s ease-in
+
+  &:focus
+  &:hover
+    opacity 1
+    transition .3s ease-out
+
+
+// Component styles are injected through grunt
+/* inject:styl */
+@import '../components/critical/_header.styl';
+@import '../components/critical/_main-body.styl';
+@import '../components/critical/_turbine.styl';
+/* endinject */

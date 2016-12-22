@@ -1,0 +1,78 @@
+.turbine-container
+  bottom 0
+  left 0
+  overflow hidden
+  position absolute
+  right 0
+  top 0
+  z-index 95
+
+.turbine
+  bottom -150px
+  left 50%
+  position absolute
+  transform translate(-50%, 0) scale(.6)
+
+  @media $tablet
+    bottom -80px
+    transform translate(-50%, 0) scale(.7)
+
+  @media $desktop
+    bottom -100px
+    transform translateX(-50%)
+
+  @media (max-height: 667px)
+    bottom -150px
+
+  @media (max-height: 480px)
+    bottom -200px
+
+  @media (max-height: 380px)
+    bottom -200px
+    left 50%
+
+  &:before
+    background rgba(#fff, .3)
+    border-radius 50%
+    bottom calc(100% - 222px)
+    content ''
+    height 496px
+    left calc(50% - 249px)
+    position absolute
+    transform-origin center, center
+    transition transform .4s ease-out
+    width 496px
+
+  &__rotor
+  &__mast
+    svg
+      height 100%
+      width 100%
+
+  &__rotor
+    animation 3s linear infinite hydro-wheel
+    bottom calc(100% - 222px)
+    height 496px
+    left calc(50% - 249px)
+    position absolute
+    transform-origin center, center
+    width 496px
+    will-change transform
+    z-index 30
+
+    &.data-has-loaded
+      animation none
+
+
+  &__mast
+    height 498px
+    position relative
+    width 76px
+    z-index 20
+
+@keyframes hydro-wheel
+  from
+    transform rotateZ(0deg)
+
+  to
+    transform rotateZ(359deg)

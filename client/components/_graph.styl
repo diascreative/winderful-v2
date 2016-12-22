@@ -1,0 +1,66 @@
+/*=============================================
+=            Graph                           =
+=============================================*/
+.graph
+  bottom -44px
+  height 134px
+  left 0
+  overflow hidden
+  position absolute
+  right 0
+  z-index 400
+
+  #graph-container
+    height 90px
+
+.rickshaw_graph
+  .y_grid line
+    stroke #fff
+
+  .y_ticks path
+    display none
+
+  .y_ticks text,
+  .x_ticks_d3 text
+    color #fff
+    fill #fff
+    font-size 12px
+    line-height 16px
+    opacity 1
+
+  .x_tick
+    border-left 1px dotted #fff
+    bottom -44px
+
+    .title
+      color #fff
+      font normal 16px/20px $font-primary
+      fill #fff
+      margin 10px
+      opacity 1
+
+  .detail
+    background #fff
+
+    .dot.active
+      display none
+
+    .item.active,
+    .x_label
+      background #fff
+      border none
+      border-radius 0
+      color #29abe2
+      font-size 12px
+      fill #fff
+      line-height 16px
+      margin 0
+      padding 5px 10px
+      top 0 !important
+      &after
+        display none
+
+    .x_label
+      font-weight normal
+      opacity 1
+      top 30px !important
