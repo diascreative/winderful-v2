@@ -891,6 +891,7 @@ module.exports = function(grunt) {
       'injector',
       'wiredep:client',
       'wiredep:clientAdmin',
+      'swPrecache:dev',
       'postcss',
       'express:dev',
       'wait',
