@@ -120,9 +120,11 @@ export default function(app) {
   }
 
   if ('production' === env) {
+    let cacheTime = 86400 * 365;
+
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
-    app.use(express.static(app.get('appPath')));
-    app.use(express.static(app.get('appPath') + '/admin-app'));
+    app.use(express.static(app.get('appPath'), { maxAge: cacheTime }));
+    app.use(express.static(app.get('appPath') + '/admin-app', { maxAge: cacheTime }));
     app.use(morgan('dev'));
   }
 
