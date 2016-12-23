@@ -1,7 +1,7 @@
 // Generated on 2016-07-27 using generator-angular-fullstack 3.5.0
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   var localConfig;
   try {
     localConfig = require('./server/config/local.env');
@@ -23,6 +23,10 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+
+  var packageJson = require('./package.json');
+  var path = require('path');
+  var swPrecache = require('sw-precache');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -208,14 +212,14 @@ module.exports = function (grunt) {
           env: {
             PORT: process.env.PORT || 9000
           },
-          callback: function (nodemon) {
-            nodemon.on('log', function (event) {
+          callback: function(nodemon) {
+            nodemon.on('log', function(event) {
               console.log(event.colour);
             });
 
             // opens browser on initial server start
-            nodemon.on('config:update', function () {
-              setTimeout(function () {
+            nodemon.on('config:update', function() {
+              setTimeout(function() {
                 require('open')('http://localhost:8080/debug?port=5858');
               }, 500);
             });
@@ -417,7 +421,8 @@ module.exports = function (grunt) {
             'assets/fonts/**/*',
             'assets/json/**/*',
             'admin.html',
-            'index.html'
+            'index.html',
+            'service-worker-registration.js'
           ]
         }, {
           expand: true,
@@ -751,7 +756,7 @@ module.exports = function (grunt) {
           desktopBrowser: {},
           windows: {
           pictureAspect: 'whiteSilhouette',
-          backgroundColor: '#00748d',
+          backgroundColor: '#005a6b',
           onConflict: 'override',
           assets: {
             windows80Ie10Tile: false,
@@ -765,9 +770,9 @@ module.exports = function (grunt) {
           },
           androidChrome: {
           pictureAspect: 'shadow',
-          themeColor: '#00748d',
+          themeColor: '#005a6b',
           manifest: {
-            name: 'People\'s Power Station',
+            name: 'Winderful',
             display: 'standalone',
             orientation: 'notSet',
             onConflict: 'override',
@@ -781,7 +786,7 @@ module.exports = function (grunt) {
           safariPinnedTab: {
           pictureAspect: 'blackAndWhite',
           threshold: 82.03125,
-          themeColor: '#00748d'
+          themeColor: '#005a6b'
           }
         },
         settings: {
@@ -790,16 +795,62 @@ module.exports = function (grunt) {
         }
         }
       }
+    },
+    swPrecache: {
+      dev: {
+        handleFetch: false,
+        rootDir: '<%= yeoman.client %>'
+      },
+      prod: {
+        handleFetch: true,
+        rootDir: '<%= yeoman.dist %>/<%= yeoman.client %>'
+      }
     }
   });
 
+  function writeServiceWorkerFile(rootDir, handleFetch, callback) {
+    var config = {
+      cacheId: packageJson.name,
+      // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
+      // the service worker will precache resources but won't actually serve them.
+      // This allows you to test precaching behavior without worry about the cache preventing your
+      // local changes from being picked up during the development cycle.
+      handleFetch: handleFetch,
+      logger: grunt.log.writeln,
+      staticFileGlobs: [
+        rootDir + '/app/**.css',
+        rootDir + '/index.html',
+        rootDir + '/assets/images/**.*',
+        rootDir + '/assets/images/landscapes/**.*'
+      ],
+      stripPrefix: rootDir + '/',
+      // verbose defaults to false, but for the purposes of this demo, log more.
+      verbose: true
+    };
+
+    swPrecache.write(path.join(rootDir, 'service-worker.js'), config, callback);
+  }
+
+  grunt.registerMultiTask('swPrecache', function() {
+    var done = this.async();
+    var rootDir = this.data.rootDir;
+    var handleFetch = this.data.handleFetch;
+
+    writeServiceWorkerFile(rootDir, handleFetch, function(error) {
+      if (error) {
+        grunt.fail.warn(error);
+      }
+      done();
+    });
+  });
+
   // Used for delaying livereload until after server has restarted
-  grunt.registerTask('wait', function () {
+  grunt.registerTask('wait', function() {
     grunt.log.ok('Waiting for server reload...');
 
     var done = this.async();
 
-    setTimeout(function () {
+    setTimeout(function() {
       grunt.log.writeln('Done waiting!');
       done();
     }, 1500);
@@ -809,7 +860,7 @@ module.exports = function (grunt) {
     this.async();
   });
 
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', function(target) {
     if (target === 'dist-no-build') {
       return grunt.task.run(['env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
     }
@@ -848,7 +899,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function () {
+  grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
@@ -968,7 +1019,8 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'inline',
-    'htmlmin'
+    'htmlmin',
+    'swPrecache:prod'
   ]);
 
   grunt.registerTask('default', [

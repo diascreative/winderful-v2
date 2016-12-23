@@ -77,6 +77,11 @@ export default function(app) {
         .then(renderIndex(req, res));
   });
 
+  app.get('/index.html', function(req, res) {
+    return getLatest()
+        .then(renderIndex(req, res));
+  });
+
   function getLatest() {
     const redisKey = `gen--index--latest`;
 

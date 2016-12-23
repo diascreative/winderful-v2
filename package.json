@@ -110,6 +110,7 @@
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0",
     "supertest": "^1.1.0",
+    "sw-precache": "^4.2.3",
     "time-grunt": "^1.2.1"
   },
   "engines": {
