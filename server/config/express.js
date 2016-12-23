@@ -33,42 +33,6 @@ export default function(app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
-  app.use(cookieParser());
-  // app.use(passport.initialize());
-
-  // Persist sessions with MongoStore / sequelizeStore
-  // We need to enable sessions for passport-twitter because it's an
-  // oauth 1.0 strategy, and Lusca depends on sessions
-  // PIRE : disabled sessions
-  // app.use(session({
-  //   secret: config.secrets.session,
-  //   saveUninitialized: true,
-  //   resave: false,
-  //   store: new Store(sqldb.sequelize)
-  // }));
-
-  /**
-   * Lusca - express server security
-   * https://github.com/krakenjs/lusca
-   */
-  if ('test' !== env) {
-    app.use(helmet({
-      frameguard: false
-    }));
-
-    // PIRE : disabled sessions
-    // app.use(lusca({
-    //   csrf: {
-    //     angular: true
-    //   },
-    //   hsts: {
-    //     maxAge: 31536000, //1 year, in seconds
-    //     includeSubDomains: true,
-    //     preload: true
-    //   },
-    //   xssProtection: true
-    // }));
-  }
 
   app.set('appPath', path.join(config.root, 'client'));
 
