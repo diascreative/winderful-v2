@@ -237,6 +237,7 @@ module.exports = function(grunt) {
           'angular-ui-notification',
           '/angular-ui-select/dist/select.css',
           /bootstrap/,
+          '/rickshaw/*.css',
           '/es5-shim/',
           /font-awesome\.css/,
           '/json3/'
@@ -739,60 +740,61 @@ module.exports = function(grunt) {
         src: '<%= yeoman.client %>/assets/images/favicon.png',
         dest: '<%= yeoman.dist %>/<%= yeoman.client %>',
         options: {
-        iconsPath: '/',
-        html: ['<%= yeoman.dist %>/<%= yeoman.client %>/favicons.html'],
-        design: {
-          ios: {
-          pictureAspect: 'backgroundAndMargin',
-          backgroundColor: '#ffffff',
-          margin: '25%',
-          assets: {
-            ios6AndPriorIcons: false,
-            ios7AndLaterIcons: false,
-            precomposedIcons: false,
-            declareOnlyDefaultIcon: true
-          }
-          },
-          desktopBrowser: {},
-          windows: {
-          pictureAspect: 'whiteSilhouette',
-          backgroundColor: '#005a6b',
-          onConflict: 'override',
-          assets: {
-            windows80Ie10Tile: false,
-            windows10Ie11EdgeTiles: {
-            small: false,
-            medium: true,
-            big: false,
-            rectangle: false
+          iconsPath: '/',
+          html: ['<%= yeoman.dist %>/<%= yeoman.client %>/favicons.html'],
+          design: {
+            ios: {
+              pictureAspect: 'backgroundAndMargin',
+              backgroundColor: '#ffffff',
+              margin: '25%',
+              assets: {
+                ios6AndPriorIcons: false,
+                ios7AndLaterIcons: false,
+                precomposedIcons: false,
+                declareOnlyDefaultIcon: true
+              }
+            },
+            desktopBrowser: {},
+            windows: {
+              pictureAspect: 'whiteSilhouette',
+              backgroundColor: '#005a6b',
+              onConflict: 'override',
+              assets: {
+                windows80Ie10Tile: false,
+                windows10Ie11EdgeTiles: {
+                small: false,
+                medium: true,
+                big: false,
+                rectangle: false
+                }
+              }
+            },
+            androidChrome: {
+              pictureAspect: 'shadow',
+              backgroundColor: '#005a6b',
+              themeColor: '#005a6b',
+              manifest: {
+                name: 'Winderful',
+                display: 'standalone',
+                orientation: 'notSet',
+                onConflict: 'override',
+                declared: true
+              },
+              assets: {
+                legacyIcon: false,
+                lowResolutionIcons: false
+              }
+            },
+            safariPinnedTab: {
+              pictureAspect: 'blackAndWhite',
+              threshold: 82.03125,
+              themeColor: '#005a6b'
             }
-          }
           },
-          androidChrome: {
-          pictureAspect: 'shadow',
-          themeColor: '#005a6b',
-          manifest: {
-            name: 'Winderful',
-            display: 'standalone',
-            orientation: 'notSet',
-            onConflict: 'override',
-            declared: true
-          },
-          assets: {
-            legacyIcon: false,
-            lowResolutionIcons: false
+          settings: {
+            scalingAlgorithm: 'Mitchell',
+            errorOnImageTooSmall: false
           }
-          },
-          safariPinnedTab: {
-          pictureAspect: 'blackAndWhite',
-          threshold: 82.03125,
-          themeColor: '#005a6b'
-          }
-        },
-        settings: {
-          scalingAlgorithm: 'Mitchell',
-          errorOnImageTooSmall: false
-        }
         }
       }
     },
@@ -822,6 +824,7 @@ module.exports = function(grunt) {
         rootDir + '/app/**.css',
         rootDir + '/app/**.js',
         rootDir + '/index.html',
+        rootDir + '/favicon-**.png',
         rootDir + '/assets/images/**.*',
         rootDir + '/assets/images/landscapes/**.*'
       ],

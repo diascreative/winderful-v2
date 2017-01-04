@@ -14,6 +14,12 @@
     height 90px
 
 .rickshaw_graph
+  position relative
+
+  svg
+    display block
+    overflow hidden
+
   .y_grid line
     stroke #fff
 
@@ -41,26 +47,40 @@
 
   .detail
     background #fff
+    bottom 0
+    pointer-events none
+    position absolute
+    top 0
+    width 1px
+    transition opacity 0.25s linear
+    z-index 2
 
     .dot.active
       display none
 
-    .item.active,
+    .item,
     .x_label
       background #fff
-      border none
-      border-radius 0
       color #29abe2
       font-size 12px
       fill #fff
       line-height 16px
       margin 0
       padding 5px 10px
+      position absolute
       top 0 !important
+      white-space nowrap
+
       &after
         display none
 
+      &.left
+        left 0
+
+      &.right
+        right 0
+
     .x_label
       font-weight normal
-      opacity 1
+      padding 6px
       top 30px !important

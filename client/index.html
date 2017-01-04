@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" ng-app="winderfulApp" ng-controller="mainController as $ctrl">
+<html class="no-js" ng-app="winderfulApp" ng-controller="mainController as $ctrl" lang="eng">
   <head>
     <meta charset="utf-8">
     <meta name="fragment" content="!">
@@ -32,7 +32,6 @@
 
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
-      <link rel="stylesheet" href="bower_components/rickshaw/rickshaw.css" />
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -68,7 +67,7 @@
     <header class="main-header">
       <nav class="main-nav" ng-cloak>
         <% if (!embedded) { %>
-        <a href="#about" title="About" anchor-smooth-scroll>
+        <a href="#about" title="About Winderful" anchor-smooth-scroll>
           About
         </a>
         <% } %><!-- end if embedded -->
@@ -149,8 +148,8 @@
         parallax-speed="0.3"
         parallax-top="0">
         <div class="turbine">
-          <div class="turbine__rotor" id="turbine-rotor"><img src="assets/images/critical/turbine--rotor.svg" alt=""></div>
-          <div class="turbine__mast"><img src="assets/images/critical/turbine--mast.svg" alt=""></div>
+          <div class="turbine__rotor" id="turbine-rotor"><img src="assets/images/critical/turbine--rotor.svg" height="496" width="496" alt=""></div>
+          <div class="turbine__mast"><img src="assets/images/critical/turbine--mast.svg" height="496" width="76" alt=""></div>
         </div>
       </div>
 
@@ -267,7 +266,7 @@
     <% } %> <!-- end embedded -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
+    <!--<script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -275,7 +274,7 @@
 
       ga('create', 'UA-XXXXX-X');
       ga('send', 'pageview');
-    </script>
+    </script>-->
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -296,7 +295,9 @@
       <script src="bower_components/angular-rickshaw/rickshaw.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
+
     <script src="bower_components/rickshaw/rickshaw.js"></script>
+
     <!-- build:js(.tmp) app/app.js -->
       <script src="app/app.js"></script>
       <!-- injector:js -->
@@ -309,6 +310,7 @@
       <!-- endinjector -->
     <!-- endbuild -->
     <script src="service-worker-registration.js"></script>
+
     <script>
       function sendMessage(message) {
         return new Promise(function(resolve, reject) {
