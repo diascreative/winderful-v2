@@ -1,7 +1,6 @@
 'use strict';
 
 (function() {
-
 class MainController {
 
   constructor(appConfig, graphDefault, $filter, $http, $interval, $location, $timeout, $rootScope, $scope) {
@@ -64,8 +63,20 @@ class MainController {
   }
 
   $onInit() {
+    const cachedCurrent = window.localStorage.getItem('current');
+    const cachedHistorical = window.localStorage.getItem('historical');
+
+    if (cachedCurrent) {
+      this._updateCurrentData(JSON.parse(cachedCurrent));
+    }
+
+    if (cachedHistorical) {
+      this._updateHistoricalData(JSON.parse(cachedHistorical));
+    }
+
     this._getLatestData();
     this._getHistoricData();
+
     this.$interval(this._startStats.bind(this), 10000);
   }
 
@@ -79,11 +90,25 @@ class MainController {
       method: 'GET'
     })
     .then(response => {
-      this.currentOutput = angular.copy(response.data[0]);
-      this.displayOutput = angular.copy(response.data[0]);
+      this._updateCurrentData(response.data[0]);
+      this._cacheData('current', response.data[0]);
 
-      this.turbineSpeed = this.powerToSpeed(this.displayOutput.wind);
     });
+  }
+
+  _cacheData(name, data) {
+    window.localStorage.setItem(name, JSON.stringify(data));
+  }
+
+  _getCurrentCached(name, data) {
+    window.localStorage.setItem(name, JSON.stringify(data));
+  }
+
+  _updateCurrentData(data) {
+    this.currentOutput = angular.copy(data);
+    this.displayOutput = angular.copy(data);
+
+    this.turbineSpeed = this.powerToSpeed(this.displayOutput.wind);
   }
 
   /**
@@ -94,20 +119,22 @@ class MainController {
 
     return this.$http.get(url)
             .success(data => {
-              const mapped = data.map(item => {
-                return {
-                  x: moment(item.datetime).unix(),
-                  y: item.wind,
-                  z: item.demand
-                };
-              });
-
-
-
-              this.graph.series[0].data = mapped.reverse();
-              this.loaded = true;
-
+              this._updateHistoricalData(data);
+              this._cacheData('historical', data);
             });
+  }
+
+  _updateHistoricalData(data) {
+    const mapped = data.map(item => {
+      return {
+        x: moment(item.datetime).unix(),
+        y: item.wind,
+        z: item.demand
+      };
+    });
+
+    this.graph.series[0].data = mapped.reverse();
+    this.loaded = true;
   }
 
   _startStats() {
@@ -189,7 +216,7 @@ class MainController {
 
     const now = new Date(this.currentOutput.datetime);
     const displayDate = new Date(this.displayOutput.datetime);
-    const delta = 1000 * 10;
+    const delta = 1000 * 5;
     let when = 'Right now';
     let isWas = 'is';
 

@@ -32,7 +32,7 @@ function query(redisKey, req) {
     }
 
     const whereQuery = {};
-    const count = req.query.count ? parseInt(req.query.count) : 7000;
+    const count = req.query.count ? parseInt(req.query.count) : 1000;
 
     if (!req.query.count) {
       const sixDaysAgo = new Date();
