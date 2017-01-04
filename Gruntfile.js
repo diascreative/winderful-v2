@@ -810,7 +810,7 @@ module.exports = function(grunt) {
 
   function writeServiceWorkerFile(rootDir, handleFetch, callback) {
     var config = {
-      cacheId: packageJson.name,
+      cacheId: packageJson.name + '-' + packageJson.version,
       // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
       // the service worker will precache resources but won't actually serve them.
       // This allows you to test precaching behavior without worry about the cache preventing your
@@ -818,7 +818,9 @@ module.exports = function(grunt) {
       handleFetch: handleFetch,
       logger: grunt.log.writeln,
       staticFileGlobs: [
+        rootDir + '/bower_components/rickshaw/rickshaw.js',
         rootDir + '/app/**.css',
+        rootDir + '/app/**.js',
         rootDir + '/index.html',
         rootDir + '/assets/images/**.*',
         rootDir + '/assets/images/landscapes/**.*'
