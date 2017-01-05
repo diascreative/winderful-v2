@@ -77,6 +77,8 @@ class MainController {
     this._getLatestData();
     this._getHistoricData();
 
+    this.$interval(this._getLatestData.bind(this), 2 * 60 * 1000);
+    this.$interval(this._getHistoricData.bind(this), 2 * 60 * 1000);
     this.$interval(this._startStats.bind(this), 10000);
   }
 
