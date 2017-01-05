@@ -184,9 +184,9 @@ class MainController {
   }
 
   renderDemandCopy() {
-    const now = new Date(this.currentOutput.datetime);
-    const displayDate = new Date(this.displayOutput.datetime);
-    const delta = 1000 * 10;
+    const now = new Date();
+    const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime))
+    const delta = 1000 * 5 * 60;
     let when = 'current';
 
     if (now - displayDate > delta) {
@@ -228,12 +228,12 @@ class MainController {
 
     const now = new Date();
     const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime))
-    const delta = 1000 * 5;
+    const delta = 1000 * 5 * 60;
     let when = 'Right now';
     let isWas = 'is';
 
     if (now - displayDate > delta) {
-      when = moment(this.displayOutput.datetime).calendar(null, {
+      when = this._toLocalTime(this.displayOutput.datetime).calendar(null, {
               sameDay: '[Today <span class="small">at] HH:mm[</span>]',
               nextDay: '[Tomorrow <span class="small">at] HH:mm[</span>]',
               nextWeek: 'dddd [<span class="small">at] HH:mm[</span>]',
