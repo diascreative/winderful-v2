@@ -237,7 +237,7 @@ module.exports = function(grunt) {
           'angular-ui-notification',
           '/angular-ui-select/dist/select.css',
           /bootstrap/,
-          '/rickshaw/*.css',
+          '/rickshaw/',
           '/es5-shim/',
           /font-awesome\.css/,
           '/json3/'
@@ -771,9 +771,12 @@ module.exports = function(grunt) {
             },
             androidChrome: {
               pictureAspect: 'shadow',
-              backgroundColor: '#005a6b',
               themeColor: '#005a6b',
+              backgroundColor: '#005a6b',
+              background_color: '#005a6b',
               manifest: {
+                backgroundColor: '#005a6b',
+                background_color: '#005a6b',
                 name: 'Winderful',
                 display: 'standalone',
                 orientation: 'notSet',

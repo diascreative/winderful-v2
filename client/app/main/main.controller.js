@@ -118,9 +118,9 @@ class MainController {
     const url = `/api/outputs/`;
 
     return this.$http.get(url)
-            .success(data => {
-              this._updateHistoricalData(data);
-              this._cacheData('historical', data);
+            .then(res => {
+              this._updateHistoricalData(res.data);
+              this._cacheData('historical', res.data);
             });
   }
 
