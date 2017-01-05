@@ -13,8 +13,9 @@ module.exports = {
 };
 
 function scheduleJobs() {
+  // importData();
   // import data every 5 mins
-  schedule.scheduleJob('6,11,16,21,26,31,36,41,46,51,56 * * * *', importData);
+  schedule.scheduleJob('1,6,11,16,21,26,31,36,41,46,51,56 * * * *', importData);
 }
 
 function importData() {
