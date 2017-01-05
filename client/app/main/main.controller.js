@@ -124,10 +124,22 @@ class MainController {
             });
   }
 
+  _toLocalTime(itemDate) {
+    const dateFormat = 'YYYY,MM,D,HH,mm,ss';
+    const date = moment(itemDate).format(dateFormat);
+    const dateArr = date.split(',');
+    dateArr[1] -= 1;
+    const utcDate = moment.utc(dateArr);
+
+    return utcDate.local();
+  }
+
   _updateHistoricalData(data) {
     const mapped = data.map(item => {
+      const localDate = this._toLocalTime(item.datetime);
+
       return {
-        x: moment(item.datetime).unix(),
+        x: localDate.unix(),
         y: item.wind,
         z: item.demand
       };
@@ -214,8 +226,8 @@ class MainController {
       return '';
     }
 
-    const now = new Date(this.currentOutput.datetime);
-    const displayDate = new Date(this.displayOutput.datetime);
+    const now = new Date();
+    const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime))
     const delta = 1000 * 5;
     let when = 'Right now';
     let isWas = 'is';

@@ -778,7 +778,8 @@ module.exports = function(grunt) {
                 display: 'standalone',
                 orientation: 'notSet',
                 onConflict: 'override',
-                declared: true
+                declared: true,
+                start_url: '/?utm_source=homescreen'
               },
               assets: {
                 legacyIcon: false,
