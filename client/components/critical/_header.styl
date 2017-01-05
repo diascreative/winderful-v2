@@ -230,3 +230,22 @@
     left 0
     position absolute
     width 100%
+
+.offline-message
+  background rgba($color-secondary, .8)
+  border-radius 0 0 5px 5px
+  color #fff
+  left 50%
+  opacity 0
+  padding 6px 10px
+  position fixed
+  top 0
+  transform translateX(-50%)
+  transition all .3s ease-in
+  visibility hidden
+  z-index 200
+
+  &.visible
+    opacity 1
+    transition all .3s ease-out
+    visibility visible

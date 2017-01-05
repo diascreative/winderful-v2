@@ -1,5 +1,17 @@
 'use strict';
 
+function updateOnlineStatus() {
+  if (navigator.onLine) {
+    $('.offline-message').removeClass('visible');
+  } else {
+    $('.offline-message')
+      .addClass('visible')
+      .text('There is no Internet connection');
+  }
+}
+
+$(window).bind('online offline',  updateOnlineStatus);
+
 angular.module('winderfulApp', [
   'ngResource',
   'ngSanitize',
