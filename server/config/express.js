@@ -14,7 +14,6 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
-import lusca from 'lusca';
 import config from './environment';
 // import passport from 'passport';
 import session from 'express-session';
@@ -25,6 +24,38 @@ var Store = expressSequelizeSession(session.Store);
 
 export default function(app) {
   var env = app.get('env');
+
+  app.use(helmet({
+    frameguard: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [
+          '\'self\'',
+          'data:'
+        ],
+        styleSrc: [
+          '\'self\'',
+          '\'unsafe-inline\'',
+          'https://fonts.googleapis.com'
+        ],
+        scriptSrc: [
+          '\'self\'',
+          '\'unsafe-inline\'',
+          '\'unsafe-eval\'',
+          'https://www.google-analytics.com'
+        ],
+        imgSrc: [
+          '\'self\'',
+          'data:',
+          'https://www.google-analytics.com',
+          'https://server.arcgisonline.com'
+        ],
+        fontSrc: [
+          '\'self\'',
+          'https://fonts.gstatic.com']
+      }
+    }
+  }))
 
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
