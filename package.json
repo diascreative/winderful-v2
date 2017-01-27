@@ -17,6 +17,7 @@
     "express-sequelize-session": "0.4.0",
     "express-session": "^1.14.2",
     "formidable": "^1.0.17",
+    "grunt-replace": "^1.0.1",
     "helmet": "^3.3.0",
     "jsonwebtoken": "^7.2.1",
     "lodash": "^4.17.4",

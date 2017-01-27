@@ -735,6 +735,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     realFavicon: {
       favicons: {
         src: '<%= yeoman.client %>/assets/images/favicon.png',
@@ -777,6 +778,7 @@ module.exports = function(grunt) {
               manifest: {
                 backgroundColor: '#005a6b',
                 background_color: '#005a6b',
+                gcm_sender_id: "432826663705",
                 name: 'Winderful',
                 display: 'standalone',
                 orientation: 'notSet',
@@ -802,6 +804,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     swPrecache: {
       dev: {
         handleFetch: false,
@@ -810,6 +813,84 @@ module.exports = function(grunt) {
       prod: {
         handleFetch: true,
         rootDir: '<%= yeoman.dist %>/<%= yeoman.client %>'
+      }
+    },
+
+    replace: {
+      manifest: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['<%= yeoman.dist %>/<%= yeoman.client %>/manifest.json'],
+            dest: '<%= yeoman.dist %>/<%= yeoman.client %>'
+          }
+        ],
+        options: {
+          patterns: [{
+            match: /"display": "standalone"/,
+            replacement: function() {
+              return `"display": "standalone",
+    "gcm_sender_id": "432826663705"`;
+            }
+          }]
+        }
+      },
+
+      serviceWorker: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['<%= yeoman.dist %>/<%= yeoman.client %>/service-worker.js'],
+            dest: '<%= yeoman.dist %>/<%= yeoman.client %>'
+          }
+        ],
+        options: {
+          patterns: [{
+            match: /'use strict';/,
+            replacement: function() {
+              return `'use strict';
+
+self.addEventListener('push', function(event) {
+  console.log('[Service Worker] Push Received.', event);
+
+  var title = 'Winderful';
+  var options = {
+    body: 'Right now #wind is meeting 10% of the National Grid\'s electricity demand.',
+    icon: './android-chrome-512x512.png'
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+
+self.addEventListener('notificationclick', function(event) {
+  console.log('On notification click: ', event.notification.tag);
+  // Android doesn’t close the notification when you click on it
+  // See: http://crbug.com/463146
+  event.notification.close();
+
+  // This looks to see if the current is already open and
+  // focuses if it is
+  event.waitUntil(clients.matchAll({
+    type: 'window'
+  }).then(function(clientList) {
+    for (var i = 0; i < clientList.length; i++) {
+      var client = clientList[i];
+      if (client.url === '/' && 'focus' in client) {
+        return client.focus();
+      }
+    }
+    if (clients.openWindow) {
+      return clients.openWindow('/');
+    }
+  }));
+});
+`;
+            }
+          }]
+        }
       }
     }
   });
@@ -1030,7 +1111,9 @@ module.exports = function(grunt) {
     'usemin',
     'inline',
     'htmlmin',
-    'swPrecache:prod'
+    'swPrecache:prod',
+    'replace:manifest',
+    'replace:serviceWorker'
   ]);
 
   grunt.registerTask('default', [

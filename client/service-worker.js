@@ -37,13 +37,13 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [['app/app.constant--shared.js','00c3eaab89bdea4bbced564b2d8ee954'],['app/app.constant.js','1207995e9474bc1bdc0707ed0cfa1391'],['app/app.js','ee53251a08b0eb03e711e6d2851849bf'],['app/notifications.js','5dc51569b08b3932d168bd677dced270'],['assets/images/cloud.svg','b9ef83e6192e6540e4930d8f64b74ab3'],['assets/images/favicon.png','cc80e6b8aa61cfc56acdf1a084987a21'],['assets/images/icon--fb.svg','cd24f9923e7c5d9b869f94d1642228d2'],['assets/images/icon--twitter.svg','fdca6b998eafb4e5c0ac85eb1d5b3426'],['assets/images/landscapes/1.svg','70e3da2ff07dcbd58b25c5eed58c0c8d'],['assets/images/landscapes/2.svg','9c4aad085028c6e206f722d4cc0f7c47'],['assets/images/screenshot.png','0db4b9307b7c3114f8830700bee46579'],['bower_components/rickshaw/rickshaw.js','4c75985092ddc4f60f3c4d8bb3867bb9'],['index.html','51cd953eea3bfd969b26b965748e5125']];
+var precacheConfig = [["app/app.constant--shared.js","00c3eaab89bdea4bbced564b2d8ee954"],["app/app.constant.js","1207995e9474bc1bdc0707ed0cfa1391"],["app/app.js","ee53251a08b0eb03e711e6d2851849bf"],["app/notifications.js","c50cad4468e413d4a09015daf02f8b09"],["assets/images/cloud.svg","b9ef83e6192e6540e4930d8f64b74ab3"],["assets/images/favicon.png","cc80e6b8aa61cfc56acdf1a084987a21"],["assets/images/icon--fb.svg","cd24f9923e7c5d9b869f94d1642228d2"],["assets/images/icon--twitter.svg","fdca6b998eafb4e5c0ac85eb1d5b3426"],["assets/images/landscapes/1.svg","70e3da2ff07dcbd58b25c5eed58c0c8d"],["assets/images/landscapes/2.svg","9c4aad085028c6e206f722d4cc0f7c47"],["assets/images/screenshot.png","0db4b9307b7c3114f8830700bee46579"],["bower_components/rickshaw/rickshaw.js","4c75985092ddc4f60f3c4d8bb3867bb9"],["index.html","51cd953eea3bfd969b26b965748e5125"]];
 var cacheName = 'sw-precache-v2-winderful-1.0.1-' + (self.registration ? self.registration.scope : '');
 
 
 
 
-var addDirectoryIndex = function(originalUrl, index) {
+var addDirectoryIndex = function (originalUrl, index) {
     var url = new URL(originalUrl);
     if (url.pathname.slice(-1) === '/') {
       url.pathname += index;
@@ -51,7 +51,7 @@ var addDirectoryIndex = function(originalUrl, index) {
     return url.toString();
   };
 
-var createCacheKey = function(originalUrl, paramName, paramValue,
+var createCacheKey = function (originalUrl, paramName, paramValue,
                            dontCacheBustUrlsMatching) {
     // Create a new URL object to avoid modifying originalUrl.
     var url = new URL(originalUrl);
@@ -67,7 +67,7 @@ var createCacheKey = function(originalUrl, paramName, paramValue,
     return url.toString();
   };
 
-var isPathWhitelisted = function(whitelist, absoluteUrlString) {
+var isPathWhitelisted = function (whitelist, absoluteUrlString) {
     // If the whitelist is empty, then consider all URLs to be whitelisted.
     if (whitelist.length === 0) {
       return true;
@@ -80,7 +80,7 @@ var isPathWhitelisted = function(whitelist, absoluteUrlString) {
     });
   };
 
-var stripIgnoredUrlParameters = function(originalUrl,
+var stripIgnoredUrlParameters = function (originalUrl,
     ignoreUrlParametersMatching) {
     var url = new URL(originalUrl);
 
@@ -138,10 +138,10 @@ self.addEventListener('install', function(event) {
         );
       });
     }).then(function() {
-
+      
       // Force the SW to transition from installing -> active state
       return self.skipWaiting();
-
+      
     })
   );
 });
@@ -161,47 +161,13 @@ self.addEventListener('activate', function(event) {
         );
       });
     }).then(function() {
-
+      
       return self.clients.claim();
-
+      
     })
   );
 });
 
 
-self.addEventListener('push', function(event) {
-  console.log('[Service Worker] Push Received.');
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
-
-  const title = 'Winderful';
-  const options = {
-    body: 'Right now #wind is meeting 10% of the National Grid\'s electricity demand.',
-    icon: './android-chrome-512x512.png'
-  };
-
-  event.waitUntil(self.registration.showNotification(title, options));
-});
 
 
-self.addEventListener('notificationclick', function(event) {
-  console.log('On notification click: ', event.notification.tag);
-  // Android doesn’t close the notification when you click on it
-  // See: http://crbug.com/463146
-  event.notification.close();
-
-  // This looks to see if the current is already open and
-  // focuses if it is
-  event.waitUntil(clients.matchAll({
-    type: 'window'
-  }).then(function(clientList) {
-    for (var i = 0; i < clientList.length; i++) {
-      var client = clientList[i];
-      if (client.url === '/' && 'focus' in client) {
-        return client.focus();
-      }
-    }
-    if (clients.openWindow) {
-      return clients.openWindow('/');
-    }
-  }));
-});
