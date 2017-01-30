@@ -8,6 +8,7 @@ module.exports = {
   sql: {
     dialect: 'mysql'
   },
+
   sequelize: {
     database: 'sunful-v2',
     username: 'root',
@@ -17,6 +18,7 @@ module.exports = {
       timezone: '+00:00'
     }
   },
+
   redis: {
     enabled: false,
     key: 'winderful-development---'
@@ -28,8 +30,17 @@ module.exports = {
     // TWITTER_ACCESS_TOKEN_KEY: '',
     // TWITTER_ACCESS_TOKEN_SECRET: ''
   },
+
+  notifications: {
+    // groupName: '',
+    // groupId: '',
+    // authorization: '',
+    // projectId: ''
+  },
+
   bmreports: {
     key: ''
   },
+
   seedDB: false
 };

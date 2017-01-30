@@ -3,6 +3,7 @@
 import schedule from 'node-schedule';
 import Twitter from 'twitter';
 
+import * as Notifications from '../api/notifications';
 import {Output, Tweets} from '../sqldb';
 import config from '../config/environment';
 
@@ -114,6 +115,8 @@ function tweet(tweet = false) {
         console.log('error tweeting');
       }
     });
+
+    Notifications.sendToGroup();
 
     return true;
   }
