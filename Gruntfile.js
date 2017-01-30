@@ -853,15 +853,32 @@ module.exports = function(grunt) {
               return `'use strict';
 
 self.addEventListener('push', function(event) {
-  console.log('[Service Worker] Push Received.', event);
+  var apiPath = '/api/outputs/?count=1';
 
-  var title = 'Winderful';
-  var options = {
-    body: 'Right now #wind is meeting 10% of the National Grid\'s electricity demand.',
-    icon: './android-chrome-512x512.png'
-  };
+  event.waitUntil(registration.pushManager.getSubscription().then(function(subscription) {
+      return fetch(apiPath).then(function(response) {
+        if (response.status !== 200) {
+          throw new Error();
+        }
 
-  event.waitUntil(self.registration.showNotification(title, options));
+        return response.json().then(function(data) {
+          var percent = Math.round(100 * (data[0].wind / data[0].demand));
+
+          var title = 'Winderful';
+          var message = 'Right now #wind is meeting ' + percent + '% of the National Grid\\'s electricity demand.';
+          var icon = './android-chrome-512x512.png';
+
+          return self.registration.showNotification(title, {
+              body: message,
+              icon: icon
+          });
+        });
+      }).catch(function(err) {
+        console.log('Notification error', err);
+      });
+  }));
+
+  return;
 });
 
 
