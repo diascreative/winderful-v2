@@ -7,5 +7,5 @@ module.exports = scheduleCrons;
 
 function scheduleCrons() {
   BMReports.scheduleJobs();
-  // Tweets.scheduleJobs();
+  Tweets.scheduleJobs();
 }

@@ -16,9 +16,10 @@ const mileStones = [10, 12, 15, 18, 20, 22, 24, 25];
 const socialUrl = 'http://winderfuluk.org/winddial';
 
 function scheduleJobs() {
-  // tweetScript();
+
+  schedule.scheduleJob('0 * * * *', Notifications.sendToGroup);
   // import data every hour
-  schedule.scheduleJob('0 * * * *', tweetScript);
+  // schedule.scheduleJob('0 * * * *', tweetScript);
 }
 
 function tweetScript() {
