@@ -9,6 +9,7 @@ import path from 'path';
 
 export default function(app) {
   // Insert routes below
+  app.use('/api/notifications', require('./api/notification'));
   app.use('/api/outputs', require('./api/output'));
   // app.use(require('prerender-node').set('prerenderServiceUrl', 'http://localhost:3000/'));
 

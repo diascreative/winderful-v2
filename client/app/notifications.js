@@ -1,5 +1,19 @@
 'use strict';
 
+function saveSubscriptionID(id) {
+  var request = new XMLHttpRequest();
+  request.open('POST', '/api/notifications/' + id, true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  request.send();
+}
+
+function deleteSubscriptionID(id) {
+  var request = new XMLHttpRequest();
+  request.open('DELETE', '/api/notifications/' + id, true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  request.send();
+}
+
 function subscribePush() {
   navigator.serviceWorker.ready.then(function(registration) {
     if (!registration.pushManager) {
@@ -12,9 +26,9 @@ function subscribePush() {
       userVisibleOnly: true
     })
     .then(function(subscription) {
-      console.info('Push notification subscribed.');
-      console.log(subscription);
-      //saveSubscriptionID(subscription);
+      const url = subscription.endpoint.split('/');
+      const id = url[url.length - 1];
+      saveSubscriptionID(id);
     })
     .catch(function(error) {
       console.error('Push notification subscription error: ', error);
@@ -38,9 +52,9 @@ function unsubscribePush() {
       //Unsubscribe `push notification`
       subscription.unsubscribe()
         .then(function() {
-          console.info('Push notification unsubscribed.');
-          console.log(subscription);
-          //deleteSubscriptionID(subscription);
+          const url = subscription.endpoint.split('/');
+          const id = url[url.length - 1];
+          deleteSubscriptionID(id);
         })
         .catch(function(error) {
           console.error(error);

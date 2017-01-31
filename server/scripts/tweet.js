@@ -3,7 +3,7 @@
 import schedule from 'node-schedule';
 import Twitter from 'twitter';
 
-import * as Notifications from '../api/notifications';
+import * as Notifications from '../api/notification/notification.controller';
 import {Output, Tweets} from '../sqldb';
 import config from '../config/environment';
 
@@ -101,12 +101,14 @@ function tweet(tweet = false) {
 
     console.log(message);
 
+    /*jshint camelcase: false */
     const client = new Twitter({
       consumer_key: config.twitter.TWITTER_CONSUMER_KEY,
       consumer_secret: config.twitter.TWITTER_CONSUMER_SECRET,
       access_token_key: config.twitter.TWITTER_ACCESS_TOKEN_KEY,
       access_token_secret: config.twitter.TWITTER_ACCESS_TOKEN_SECRET
     });
+    /*jshint camelcase: true */
 
     client.post('statuses/update', { status: message }, function(error, tweets) {
       if (!error) {

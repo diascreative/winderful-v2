@@ -16,6 +16,7 @@ var db = {
 };
 
 // Insert models below
+db.Notification = db.sequelize.import('../api/notification/notification.model');
 db.Tweets = db.sequelize.import('../api/tweets/tweets.model');
 db.Output = db.sequelize.import('../api/output/output.model');
 
