@@ -1,5 +1,25 @@
 'use strict';
 
+if ('Notification' in window) {
+  var notificationToggle = document.getElementById('notifications');
+
+  if (Notification.permission === 'granted') {
+    notificationToggle.setAttribute('checked', 'checked');
+  }
+
+  notificationToggle.addEventListener('change', e => {
+    const input = e.target;
+
+    if (input.checked) {
+      subscribePush();
+    } else {
+      unsubscribePush();
+    }
+  });
+
+  notificationToggle.style.display = 'block';
+}
+
 function saveSubscriptionID(id) {
   var request = new XMLHttpRequest();
   request.open('POST', '/api/notifications/' + id, true);
@@ -16,11 +36,6 @@ function deleteSubscriptionID(id) {
 
 function subscribePush() {
   navigator.serviceWorker.ready.then(function(registration) {
-    if (!registration.pushManager) {
-      console.log('Your browser doesn\'t support push notification.');
-      return false;
-    }
-
     //To subscribe `push notification` from push manager
     registration.pushManager.subscribe({
       userVisibleOnly: true
@@ -65,14 +80,3 @@ function unsubscribePush() {
     });
   });
 }
-
-document.getElementById('notifications')
-  .addEventListener('change', e => {
-    const input = e.target;
-
-    if (input.checked) {
-      subscribePush();
-    } else {
-      unsubscribePush();
-    }
-  });
