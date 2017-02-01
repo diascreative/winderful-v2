@@ -2,30 +2,32 @@
   background #fff
   font-weight 400
   overflow-wrap break-word
-  padding 0 24px
+  padding 0 24px 100px
   position relative
   word-wrap break-word
   word-break break-word
   z-index 300
-
-  .content
-    max-width 720px
 
   h1
   h2
     color $color-secondary
     font-size 36px
     font-weight 400
-    margin 50px 0 20px
+    line-height 39px
+    margin 32px 0
+
+    img
+      display block
+      transform translateY(2px)
 
   ul
-    list-style none
-    margin 0
-    padding 0
+    margin 0 0 24px
+    padding 0 0 0 38px
 
   li
-    margin 0 0 5px
+    margin 0 0 10px
     padding 0
+    word-break break-all
 
   p
     margin 0 0 12px
@@ -42,3 +44,35 @@
     &:focus
       border-bottom-color rgba(#fff, .6)
       transition border .3s ease-out
+
+  hr
+    background repeating-linear-gradient(to right, $font-color-primary, $font-color-primary 2px, transparent 2px,transparent 5px)
+    border 0
+    height 1px
+    margin 36px -20px
+    padding 0
+    width calc(100% + 40px)
+
+  @media $not-mobile
+    display flex
+    flex-wrap wrap
+
+    hr
+      margin 36px 0
+      width 100%
+
+    .col
+      flex-basis 50%
+      padding 0 10px
+
+      &--med
+        font-size 15px
+        max-width 394px
+
+  @media $desktop--large
+    align-content space-around
+    flex-wrap nowrap
+    justify-content center
+
+    .col--large
+      max-width 498px
