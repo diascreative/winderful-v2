@@ -3,10 +3,15 @@
 =============================================*/
 .main-app
   background-image linear-gradient(-179deg, #005A6B 0%, #0087A0 26%, #33C3DD 57%, #99E1EE 100%)
-  height calc(100vh - 120px)
+  height calc(100vh - 60px)
   max-height 725px
-  padding 12px 20px
+  overflow hidden
+  padding 0
   position relative
+
+  @media $not-mobile
+    max-height 800px
+    min-height 600px
 
 /*=============================================
 =            Navigation                       =
@@ -17,6 +22,7 @@
   top 2px
 
   a
+    border none
     color #fff
     display inline-block
     font-weight 500
@@ -24,15 +30,25 @@
     text-decoration none
     vertical-align middle
 
+  @media $not-mobile
+    position relative
+    right auto
+    top auto
+
+    a
+      margin 0 8px 0 0
+
 /*=============================================
 =            Intro copy                       =
 =============================================*/
 .intro
   color $color-secondary
+  font-size 14px
+  line-height 16px
   position relative
   z-index 200
 
-  a
+  &__copy a
     color $color-secondary
     font-weight 700
 
@@ -65,7 +81,39 @@
 
 .strapline
   font-size 12px
-  font-weight 300
+  font-weight 400
+
+@media $not-mobile
+  .intro
+    color $font-color-secondary
+    left 6px
+    max-width 350px
+    position absolute
+    top 31px
+
+    &__copy a
+      border-bottom solid 1px #fff
+      color $font-color-secondary
+      font-weight 200
+
+
+    > p:after
+      display none
+
+  .main-header
+    background none
+    padding-bottom 0
+
+    + p
+      margin-top 8px
+
+  .main-title
+    max-width 250px
+
+  .strapline
+    font-size 17px
+    line-height 20px
+    margin -4px 0 14px 2px
 
 /*=============================================
 =            Stats                       =
@@ -83,6 +131,15 @@
 
   &__equivalent
     margin-top 4px
+
+  hr
+    background repeating-linear-gradient(to right, #fff, #fff 2px, transparent 2px,transparent 5px)
+    border 0
+    display block
+    height 1px
+    margin 6px 0
+    padding 0
+    position relative
 
 .large-copy
   font-size 28px
@@ -106,3 +163,26 @@
     opacity 1
     transition all .3s ease-out
     visibility visible
+
+@media $not-mobile
+  .stats
+    font-size 18px
+    left auto
+    line-height 21px
+    max-width 320px
+    right 28px
+    text-align right
+    top 26px
+
+    &__when .large-copy
+      margin-bottom 10px
+
+    &__equivalent
+      margin-top 10px
+
+      .large-copy
+        margin-top -6px
+
+  .large-copy
+    font-size 36px
+    line-height 42px

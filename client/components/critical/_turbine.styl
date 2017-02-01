@@ -1,7 +1,6 @@
 .turbine-container
   bottom 0
   left 0
-  overflow hidden
   position absolute
   right 0
   top 0
@@ -15,20 +14,25 @@
 
   @media $tablet
     bottom -80px
-    transform translate(-50%, 0) scale(.7)
+    transform translate(-50%, 0) scale(.9)
 
   @media $desktop
-    bottom -100px
+    bottom 0
     transform translateX(-50%)
+
+
+  @media (max-height: 737px)
+    transform translate(0, 0) scale(.9)
 
   @media (max-height: 667px)
     bottom -90px
+    transform translate(10px, 0) scale(.5)
 
   @media (max-height: 480px)
-    bottom -200px
+    bottom -90px
 
   @media (max-height: 380px)
-    bottom -200px
+    bottom -90px
     left 50%
 
   &:before

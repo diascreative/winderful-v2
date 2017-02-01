@@ -236,11 +236,9 @@ class MainController {
 
     if (now - displayDate > delta) {
       when = this._toLocalTime(this.displayOutput.datetime).calendar(null, {
-              sameDay: '[Today <span class="small">at] HH:mm[</span>]',
-              nextDay: '[Tomorrow <span class="small">at] HH:mm[</span>]',
-              nextWeek: 'dddd [<span class="small">at] HH:mm[</span>]',
-              lastDay: '[Yesterday <span class="small">at] HH:mm[</span>]',
-              lastWeek: '[On] dddd [<span class="small">at] HH:mm[</span>]',
+              sameDay: '[Today,] HH:mm',
+              lastDay: '[Yesterday,] HH:mm',
+              lastWeek: '[On] dddd, HH:mm',
               sameElse: 'L'
             });
 
