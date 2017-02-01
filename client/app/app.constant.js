@@ -6,10 +6,13 @@ angular.module('winderfulApp.constants')
       features: {
         hover: {
           xFormatter: function(x) {
-            const time = moment.unix(x).format('LLL');
+            const time = moment.unix(x).format('HH:mm, Do MMM YYYY');
+            // 20:13, JAN, 02, 2017
 
             return time;
           }
+        },
+        xAxis: {
         },
         xAxis: {
           timeUnit: {

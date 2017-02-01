@@ -85,13 +85,6 @@
         <div class="stats__equivalent" data-ng-bind-html="$ctrl.getStatExampleCopy(true)"></div>
       </div>
 
-      <style type="text/css">
-      .turbine:before {
-        -webkit-transform: scale( {{$ctrl.outputPower()}});
-        transform: scale({{$ctrl.outputPower()}});
-      }
-      </style>
-
       <div class="turbine-container"
         parallax
         parallax-speed="0.3"
@@ -113,6 +106,9 @@
         </div>
 
         <div class="graph__more-info">
+          <div class="container">
+            <span>Click on the hills for more info</span>
+          </div>
         </div>
       </div>
     </div>
