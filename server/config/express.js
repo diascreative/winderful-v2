@@ -121,7 +121,6 @@ export default function(app) {
         demand: data.demand,
         rootUrl: rootUrl,
         animationDuration: powerToSpeed(data.wind),
-        heartSize: outputPower(data.wind),
         embedded: embedded,
         bgColor: bgColor
       });
@@ -141,18 +140,6 @@ export default function(app) {
     }
 
     return 360 / (60 * (output / 1000));
-  }
-
-
-  function outputPower(output) {
-    if (!output) {
-      return 0;
-    }
-
-    const percentage = output / 7000;
-    const sizedPercentage = Math.max(0.3, Math.min(percentage, 1));
-
-    return sizedPercentage;
   }
 
   if ('production' === env) {

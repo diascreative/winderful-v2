@@ -163,18 +163,6 @@ class MainController {
     return output / 1000;
   }
 
-  outputPower() {
-    if (!this.displayOutput.wind) {
-      return 0;
-    }
-
-    const percentage = this.displayOutput.wind / 7000;
-
-    const sizedPercentage = Math.max(0.3, Math.min(percentage, 1));
-
-    return sizedPercentage;
-  }
-
   renderWindOutput() {
     return this.watts(this.displayOutput.wind, '', false);
   }
