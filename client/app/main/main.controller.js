@@ -247,7 +247,7 @@ class MainController {
       isWas = 'was';
     }
 
-    return `${when}<br class="hide-not-xs"/> wind power ${isWas} `;
+    return `<div class="large-copy">${when}</div> wind power ${isWas} generating`;
   }
 
   setHistoricStats() {
@@ -287,10 +287,10 @@ class MainController {
         decimals = 1;
       }
 
-      message += html ? '<span class="large-copy">' : ' ';
+      message += html ? '<div class="large-copy">' : ' ';
       message +=  this.$filter('number')(howMany, decimals);
       message += stat.unit || '';
-      message += html ? '</span>&nbsp;' : ' ';
+      message += html ? '</div>' : ' ';
     }
 
     message += stat.post ? stat.post : '';

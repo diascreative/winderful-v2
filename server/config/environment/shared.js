@@ -54,80 +54,80 @@ exports = module.exports = {
 appStats: [
     {
       consumption: (0.000483 * 26400000) / 100,
-      pre: `that's enough to power`,
+      pre: `That's enough to power`,
       post: `of UK homes!`,
       extra: `Staying in tonight?`,
       unit: '%'
     },
     {
       consumption: 1050 / 1000000,
-      pre: `that's enough to run`,
+      pre: `That's enough to run`,
       post: `loads of washing.`,
       extra: `It's laundry time!`
     },
     {
       consumption: 1800 / 1000000,
-      pre: `that's enough for`,
+      pre: `That's enough for`,
       post: `kettles!`,
       extra: `Anyone for a cuppa?`
     },
     {
       consumption: 1200 / 1000000,
-      pre: `that's enough to power`,
+      pre: `That's enough to power`,
       post: `toasters!`,
       extra: `Afternoon snack time?`
     },
     {
       consumption: 115 / 1000000,
-      pre: `that's enough for`,
+      pre: `That's enough for`,
       post: `LED TVs!`,
       extra: `Movie marathon, anyone?`
     },
     {
       consumption: 45 / 1000000,
-      pre: `that's enough to power`,
+      pre: `That's enough to power`,
       post: `PS4s!`,
       extra: `Boredom: cured.`
     },
     {
       consumption: 1000 / 1000000,
-      pre: `that's enough for`,
+      pre: `That's enough for`,
       post: `blowdryers!`,
       extra: `Treat yo'self.`
     },
     {
       consumption: 5 / 1000000,
-      pre: `that's enough for`,
+      pre: `That's enough for`,
       post: `bike lights.`,
       extra: `Road safety first!`
     },
     {
       consumption: 1000 / 1000000,
-      pre: `that's enough to power`,
+      pre: `That's enough to power`,
       post: `hob cookers!`,
       extra: `Hungry?`
     },
     {
       consumption: 1000 / 1000000,
-      pre: `that's enough to power`,
+      pre: `That's enough to power`,
       post: `hob cookers!`,
       extra: `Dinner party?`
     },
     {
       consumption: 5 / 1000000,
-      pre: `that's enough to charge`,
+      pre: `That's enough to charge`,
       post: `smartphones.`,
       extra: `That's a lot of phone calls`
     },
     {
       consumption: 5 / 1000000,
-      pre: `that's enough to charge`,
+      pre: `That's enough to charge`,
       post: `smartphones!`,
       extra: `Just one more round of Pokemon Go wouldn't hurt… right? Right?`
     },
     {
       consumption: 20.83 / 1000000,
-      pre: `that's enough to power`,
+      pre: `That's enough to power`,
       post: `freezers.`,
       extra: `Time to stock up on ice cream`
     }

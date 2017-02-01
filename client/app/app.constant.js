@@ -35,11 +35,11 @@ angular.module('winderfulApp.constants')
       },
       options: {
         renderer: 'area',
-        height: 90
+        height: (window.innerWidth >= 675 ? 194 : 110)
       },
       series: [{
         name: 'Wind Generation',
-        color: '#54a046',
+        color: '#417505',
         data: [{x: 0, y: 0}]
       }]
     });

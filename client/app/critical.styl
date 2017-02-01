@@ -14,13 +14,18 @@ html
   padding 0
 
 body
-  background linear-gradient(rgb(0, 90, 107) 1%, rgb(0, 135, 160) 13%, rgb(51, 195, 221) 69%, rgb(153, 225, 238) 100%) 0px 0px
-  color #fff
+  background #fff
+  color $font-color-primary
   font-family $font-primary
   font-size 14px
-  line-height calc(1em + 4px)
+  line-height 20px
+  font-weight 200
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
+
+  @media $not-mobile
+    font-size 16px
+    line-height calc(1em + 4px)
 
   &.embedded
     overflow hidden
