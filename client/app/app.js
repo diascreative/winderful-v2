@@ -56,7 +56,7 @@ angular.module('winderfulApp', [
 
       if (!firstVisit) {
         $cookies.putObject('firstVisit', now);
-      } else if (now - firstVisit > 3600 * 5) {
+      } else if (now - firstVisit > 1000 * 60 * 5) {
         window.subscribePush();
       }
     }
