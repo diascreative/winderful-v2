@@ -1,6 +1,6 @@
 {
   "name": "winderful",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "server/app.js",
   "dependencies": {
     "babel-polyfill": "^6.20.0",
