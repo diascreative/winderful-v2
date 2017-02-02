@@ -232,7 +232,6 @@ module.exports = function(grunt) {
     wiredep: {
       options: {
         exclude: [
-          'angular-cookies',
           'angular-file-upload',
           'angular-ui-notification',
           '/angular-ui-select/dist/select.css',

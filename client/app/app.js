@@ -13,6 +13,7 @@ function updateOnlineStatus() {
 $(window).bind('online offline',  updateOnlineStatus);
 
 angular.module('winderfulApp', [
+  'ngCookies',
   'ngResource',
   'ngSanitize',
   'ui.router',
@@ -21,7 +22,7 @@ angular.module('winderfulApp', [
   'validation.match',
   'winderfulApp.constants'
 ])
-  .run(function($filter, $rootScope) {
+  .run(function($cookies, $filter, $rootScope) {
     /**
      * Pretty-print watt
      * @param  {Integer} watts
@@ -43,8 +44,22 @@ angular.module('winderfulApp', [
       } else {
         return `${cleanWatt} ${unit}${hours}`;
       }
-
     };
+
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      const firstVisit = $cookies.getObject('firstVisit');
+      const now = new Date().getTime();
+
+      if (firstVisit === 'blocked') {
+        return;
+      }
+
+      if (!firstVisit) {
+        $cookies.putObject('firstVisit', now);
+      } else if (now - firstVisit > 3600 * 5) {
+        window.subscribePush();
+      }
+    }
   })
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
