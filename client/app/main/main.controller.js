@@ -3,7 +3,7 @@
 (function() {
 class MainController {
 
-  constructor(appConfig, graphDefault, $filter, $http, $interval, $location, $timeout, $rootScope, $scope) {
+  constructor(appConfig, graphDefault, $filter, $http, $interval, $location, $timeout, $rootScope, $scope, $window) {
     this.$filter = $filter;
     this.$http = $http;
     this.$interval = $interval;
@@ -62,6 +62,19 @@ class MainController {
 
     this.randomStat = 1;
     this.appStats = appConfig.appStats;
+
+    this.largeScreen = window.innerWidth >= 675;
+
+    $window.addEventListener('resize', () => {
+      const screenNow = window.innerWidth >= 675;
+
+      if (screenNow !== this.largeScreen) {
+        this.graph.options = {
+          renderer: 'area',
+          height: (screenNow ? 194 : 110)
+        };
+      }
+    });
   }
 
   $onInit() {
