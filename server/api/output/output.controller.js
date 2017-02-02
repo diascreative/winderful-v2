@@ -5,7 +5,7 @@
 
 'use strict';
 
-import {Output} from '../../sqldb';
+import {Output, sequelize} from '../../sqldb';
 import Util from '../../util';
 
 // Gets a list of Outputs
@@ -33,21 +33,40 @@ function query(redisKey, req) {
 
     const whereQuery = {};
     const count = req.query.count ? parseInt(req.query.count) : 1000;
+    let groupTime = '%Y%m%d%h%i';
 
     if (!req.query.count) {
-      const sixDaysAgo = new Date();
-      sixDaysAgo.setDate(sixDaysAgo.getDate() - 6);
+      let timeFrame = 6;
+
+      if (req.query.range === 'month') {
+        timeFrame = 31;
+        groupTime = '%Y%m%d%h'; // average per hour
+      } else if (req.query.range === 'year') {
+        timeFrame = 365;
+        groupTime = '%Y%m%d'; // average per day
+      }
+
+      const dateRange = new Date();
+      dateRange.setDate(dateRange.getDate() - timeFrame);
 
       whereQuery.datetime = {
-        $gt: sixDaysAgo
+        $gt: dateRange
       }
     }
 
     return Output.findAll({
-        attributes: ['demand', 'wind', 'datetime'],
+        attributes: [
+          [sequelize.fn('max', sequelize.col('datetime')), 'datetime'],
+          [sequelize.fn('date_format', sequelize.col('datetime'), groupTime), 'date_col_formed'],
+          [sequelize.fn('avg', sequelize.col('demand')), 'demand'],
+          [sequelize.fn('avg', sequelize.col('wind')), 'wind']
+        ],
         limit: count,
         where: whereQuery,
-        order: [['datetime', 'DESC']]
+        group: [
+          'date_col_formed'
+        ],
+        order: 'datetime DESC'
       })
       .then(Util.cacheResponse(redisKey));
   }

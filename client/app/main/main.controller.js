@@ -12,6 +12,8 @@ class MainController {
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.watts = $rootScope.watts;
+    this.historicalRange = 'week';
+    this.graphDefault = graphDefault;
 
     this.turbineAnimatedJS = false;
 
@@ -74,6 +76,12 @@ class MainController {
       this._updateHistoricalData(JSON.parse(cachedHistorical));
     }
 
+    const cachedHistoricalRange = window.localStorage.getItem('historicalRange');
+
+    if (cachedHistoricalRange) {
+      this.historicalRange = JSON.parse(cachedHistoricalRange);
+    }
+
     this._getLatestData();
     this._getHistoricData();
 
@@ -117,7 +125,7 @@ class MainController {
    * Load the historical data
    */
   _getHistoricData() {
-    const url = `/api/outputs/`;
+    const url = `/api/outputs/?range=${this.historicalRange}`;
 
     return this.$http.get(url)
             .then(res => {
@@ -147,12 +155,40 @@ class MainController {
       };
     });
 
-    this.graph.series[0].data = mapped.reverse();
+    if (this.historicalRange === 'year') {
+			this.graph.features.xAxis.timeUnit.seconds = 86400 * 30.5;
+			this.graph.features.xAxis.timeUnit.formatter = function(d) { return moment(d).format('Do MMM') };
+    } else {
+      this.graph.features.xAxis.timeUnit.seconds = angular.copy(this.graphDefault).features.xAxis.timeUnit.seconds;
+      this.graph.features.xAxis.timeUnit.formatter = angular.copy(this.graphDefault).features.xAxis.timeUnit.formatter;
+    }
+
+    this.graph.series = [{
+      name: 'Wind Generation',
+      color: '#417505',
+      data: mapped.reverse()
+    }];
+
     this.loaded = true;
   }
 
   _startStats() {
     this.randomStat = Math.round(Math.random() * (this.appStats.length - 1));
+  }
+
+  setRange(newRange) {
+    let range = 'week';
+    const possibleRanges = ['week', 'month', 'year'];
+
+    if (possibleRanges.indexOf(newRange) > -1) {
+      range = newRange;
+    }
+
+    this.historicalRange = range;
+
+    this._cacheData('historicalRange', range);
+
+    this._getHistoricData();
   }
 
   powerToSpeed(output) {

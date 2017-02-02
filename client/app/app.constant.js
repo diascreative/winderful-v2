@@ -6,7 +6,7 @@ angular.module('winderfulApp.constants')
       features: {
         hover: {
           xFormatter: function(x) {
-            const time = moment.unix(x).format('HH:mm, Do MMM YYYY');
+            const time = moment.unix(x).utc().format('HH:mm, Do MMM YYYY');
             // 20:13, JAN, 02, 2017
 
             return time;
@@ -16,22 +16,10 @@ angular.module('winderfulApp.constants')
         },
         xAxis: {
           timeUnit: {
-            'name': '12 hour',
+            'name': '24 hour',
             'seconds': 3600 * 24,
             'formatter': function(d) {
-              var day = moment(d).format('D');
-              var num = day.charAt(day.length - 1);
-              var ordinal = 'th';
-
-              if (num === '1' && day !== '11') {
-                ordinal = 'st';
-              } else if (num === '2' && day !== '12') {
-                ordinal = 'nd';
-              } else if (num === '3' && day !== '13') {
-                ordinal = 'rd';
-              }
-
-              return moment(d).format('D') + ordinal;
+              return moment(d).utc().format('Do');
             }
           }
         }

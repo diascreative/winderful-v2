@@ -4,7 +4,7 @@ if ('Notification' in window) {
   var notificationToggle = document.getElementById('notifications');
 
   if (Notification.permission === 'granted') {
-    notificationToggle.setAttribute('checked', 'checked');
+    // notificationToggle.setAttribute('checked', 'checked');
   }
 
   notificationToggle.addEventListener('change', e => {
