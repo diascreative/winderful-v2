@@ -16,10 +16,8 @@ const mileStones = [10, 12, 15, 18, 20, 22, 24, 25];
 const socialUrl = 'http://winderfuluk.org/winddial';
 
 function scheduleJobs() {
-
-  schedule.scheduleJob('0 * * * *', Notifications.sendToGroup);
   // import data every hour
-  // schedule.scheduleJob('0 * * * *', tweetScript);
+  schedule.scheduleJob('0 * * * *', tweetScript);
 }
 
 function tweetScript() {
@@ -100,24 +98,23 @@ function tweet(tweet = false) {
     const message = config.appStatsCopy(tweet, stat) + ` ${socialUrl} #BlownAway`;
     storeAsLastTweet(tweet.percentage, newIndex, message);
 
-    console.log(message);
 
-    /*jshint camelcase: false */
-    const client = new Twitter({
-      consumer_key: config.twitter.TWITTER_CONSUMER_KEY,
-      consumer_secret: config.twitter.TWITTER_CONSUMER_SECRET,
-      access_token_key: config.twitter.TWITTER_ACCESS_TOKEN_KEY,
-      access_token_secret: config.twitter.TWITTER_ACCESS_TOKEN_SECRET
-    });
-    /*jshint camelcase: true */
+    // /*jshint camelcase: false */
+    // const client = new Twitter({
+    //   consumer_key: config.twitter.TWITTER_CONSUMER_KEY,
+    //   consumer_secret: config.twitter.TWITTER_CONSUMER_SECRET,
+    //   access_token_key: config.twitter.TWITTER_ACCESS_TOKEN_KEY,
+    //   access_token_secret: config.twitter.TWITTER_ACCESS_TOKEN_SECRET
+    // });
+    // /*jshint camelcase: true */
 
-    client.post('statuses/update', { status: message }, function(error, tweets) {
-      if (!error) {
-        console.log(tweets);
-      } else {
-        console.log('error tweeting');
-      }
-    });
+    // client.post('statuses/update', { status: message }, function(error, tweets) {
+    //   if (!error) {
+    //     console.log(tweets);
+    //   } else {
+    //     console.log('error tweeting');
+    //   }
+    // });
 
     Notifications.sendToGroup();
 
