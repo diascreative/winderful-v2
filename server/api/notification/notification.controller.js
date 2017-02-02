@@ -58,7 +58,9 @@ function sendNotifications(ids) {
       uri: 'https://fcm.googleapis.com/fcm/send',
       body: {
         /*jshint camelcase: false */
-        registration_ids: ids
+        // time to live is set to 1h
+        registration_ids: ids,
+        time_to_live: 3599
         /*jshint camelcase: true */
       },
       headers: {
