@@ -171,9 +171,19 @@ class MainController {
     if (this.historicalRange === 'year') {
 			this.graph.features.xAxis.timeUnit.seconds = 86400 * 30.5;
 			this.graph.features.xAxis.timeUnit.formatter = function(d) { return moment(d).format('Do MMM') };
+
+      this.graph.features.hover.xFormatter = function(x) {
+        const time = moment.unix(x).utc().format('Do MMM YYYY');
+        return time;
+      };
     } else {
       this.graph.features.xAxis.timeUnit.seconds = angular.copy(this.graphDefault).features.xAxis.timeUnit.seconds;
       this.graph.features.xAxis.timeUnit.formatter = angular.copy(this.graphDefault).features.xAxis.timeUnit.formatter;
+
+      this.graph.features.hover.xFormatter = function(x) {
+        const time = moment.unix(x).utc().format('HH:mm, Do MMM YYYY');
+        return time;
+      };
     }
 
     this.graph.series = [{

@@ -33,7 +33,7 @@ function query(redisKey, req) {
 
     const whereQuery = {};
     const count = req.query.count ? parseInt(req.query.count) : 1000;
-    let groupTime = '%Y%m%d%h%i';
+    let groupTime = '%Y%m%d%h'; // average per hour
 
     if (!req.query.count) {
       let timeFrame = 6;
@@ -56,7 +56,7 @@ function query(redisKey, req) {
 
     return Output.findAll({
         attributes: [
-          [sequelize.fn('max', sequelize.col('datetime')), 'datetime'],
+          [sequelize.fn('min', sequelize.col('datetime')), 'datetime'],
           [sequelize.fn('date_format', sequelize.col('datetime'), groupTime), 'date_col_formed'],
           [sequelize.fn('avg', sequelize.col('demand')), 'demand'],
           [sequelize.fn('avg', sequelize.col('wind')), 'wind']
