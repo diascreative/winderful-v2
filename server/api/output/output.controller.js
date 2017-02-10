@@ -33,14 +33,14 @@ function query(redisKey, req) {
 
     const whereQuery = {};
     const count = req.query.count ? parseInt(req.query.count) : 1000;
-    let groupTime = '%Y%m%d%h'; // average per hour
+    let groupTime = '%Y%m%d%H%i'; // average per hour
 
     if (!req.query.count) {
       let timeFrame = 6;
 
       if (req.query.range === 'month') {
         timeFrame = 31;
-        groupTime = '%Y%m%d%h'; // average per hour
+        groupTime = '%Y%m%d%H'; // average per hour
       } else if (req.query.range === 'year') {
         timeFrame = 365;
         groupTime = '%Y%m%d'; // average per day

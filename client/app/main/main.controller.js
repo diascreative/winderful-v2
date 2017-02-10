@@ -55,7 +55,7 @@ class MainController {
       }
 
       // return format for hover tooltip on graph
-      return this.$filter('number')(y) + ' MW';
+      return this.$filter('number')(y, 0) + ' MW';
     };
 
     this.absUrl = this.$location.protocol() + '://' + this.$location.host();
