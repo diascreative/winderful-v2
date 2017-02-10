@@ -97,24 +97,14 @@ appStats: [
       post: `hob cookers!`
     },
     {
-      consumption: 1000 / 1000000,
-      pre: `That's enough to power`,
-      post: `hob cookers!`
-    },
-    {
       consumption: 5 / 1000000,
       pre: `That's enough to charge`,
       post: `smartphones.`
     },
     {
-      consumption: 5 / 1000000,
-      pre: `That's enough to charge`,
-      post: `smartphones!`
-    },
-    {
       consumption: 20.83 / 1000000,
       pre: `That's enough to power`,
-      post: `freezers.`,
+      post: `freezers.`
     }
   ]
 };

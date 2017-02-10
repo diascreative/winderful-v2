@@ -13,8 +13,6 @@ angular.module('winderfulApp.constants')
           }
         },
         xAxis: {
-        },
-        xAxis: {
           timeUnit: {
             'name': '24 hour',
             'seconds': 3600 * 24,

@@ -3,7 +3,8 @@
 (function() {
 class MainController {
 
-  constructor(appConfig, graphDefault, $filter, $http, $interval, $location, $timeout, $rootScope, $scope, $window) {
+  constructor(appConfig, graphDefault,
+    $filter, $http, $interval, $location, $timeout, $rootScope, $scope, $window) {
     this.$filter = $filter;
     this.$http = $http;
     this.$interval = $interval;
@@ -170,15 +171,19 @@ class MainController {
 
     if (this.historicalRange === 'year') {
 			this.graph.features.xAxis.timeUnit.seconds = 86400 * 30.5;
-			this.graph.features.xAxis.timeUnit.formatter = function(d) { return moment(d).format('Do MMM') };
+			this.graph.features.xAxis.timeUnit.formatter = function(d) {
+        return moment(d).format('Do MMM');
+      };
 
       this.graph.features.hover.xFormatter = function(x) {
         const time = moment.unix(x).utc().format('Do MMM YYYY');
         return time;
       };
     } else {
-      this.graph.features.xAxis.timeUnit.seconds = angular.copy(this.graphDefault).features.xAxis.timeUnit.seconds;
-      this.graph.features.xAxis.timeUnit.formatter = angular.copy(this.graphDefault).features.xAxis.timeUnit.formatter;
+      this.graph.features.xAxis.timeUnit.seconds = angular.copy(this.graphDefault)
+                                                    .features.xAxis.timeUnit.seconds;
+      this.graph.features.xAxis.timeUnit.formatter = angular.copy(this.graphDefault)
+                                                    .features.xAxis.timeUnit.formatter;
 
       this.graph.features.hover.xFormatter = function(x) {
         const time = moment.unix(x).utc().format('HH:mm, Do MMM YYYY');
@@ -234,7 +239,7 @@ class MainController {
 
   renderDemandCopy() {
     const now = new Date();
-    const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime))
+    const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime));
     const delta = 1000 * 5 * 60;
     let when = 'current';
 
@@ -276,7 +281,7 @@ class MainController {
     }
 
     const now = new Date();
-    const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime))
+    const displayDate = new Date(this._toLocalTime(this.displayOutput.datetime));
     const delta = 1000 * 5 * 60;
     let when = 'Right now';
     let isWas = 'is';
