@@ -32,7 +32,7 @@ function query(redisKey, req) {
     }
 
     const whereQuery = {};
-    const count = req.query.count ? parseInt(req.query.count) : 1000;
+    const count = req.query.count ? parseInt(req.query.count) : 2000;
     let groupTime = '%Y%m%d%H%i'; // average per hour
 
     if (!req.query.count) {
