@@ -53,6 +53,8 @@ function buildRegistrationIDArray(ids) {
 }
 
 function sendNotifications(ids) {
+  const timeToLive = 3 * 3600; // 3 hours
+
   const options = {
       method: 'POST',
       uri: 'https://fcm.googleapis.com/fcm/send',
@@ -60,7 +62,7 @@ function sendNotifications(ids) {
         /*jshint camelcase: false */
         // time to live is set to 1h
         registration_ids: ids,
-        time_to_live: 3599
+        time_to_live: timeToLive
         /*jshint camelcase: true */
       },
       headers: {
