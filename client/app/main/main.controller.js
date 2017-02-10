@@ -330,12 +330,6 @@ class MainController {
 
     message += stat.post ? stat.post : '';
 
-    if (html && stat.extra) {
-      message += '<span class="hide-xs">';
-      message += ' ' + stat.extra;
-      message += '</span>&nbsp;';
-    }
-
     return message;
   }
 
