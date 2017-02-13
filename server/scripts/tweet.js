@@ -11,9 +11,9 @@ module.exports = {
   scheduleJobs: scheduleJobs
 };
 
-const mileStones = [10, 12, 15, 18, 20, 22, 24, 25];
+const mileStones = [10, 12, 15, 18, 20, 22, 24, 25, 30, 35];
 /* TODO: use their social url */
-const socialUrl = 'http://winderfuluk.org/winddial';
+const socialUrl = 'http://bit.ly/winderful';
 
 function scheduleJobs() {
   // import data every hour
@@ -63,15 +63,12 @@ function storeAsLastTweet(percentage, index, message) {
     });
 }
 
-function checkData(responses) {
-  const data = responses[0];
-  const tweet = responses[1];
-  const storedIndex = responses[2].equivalentIndex;
+function checkData([currentOutput, lastTeet, lastTweetIndex]) {
+  const storedIndex = lastTweetIndex ? lastTweetIndex.equivalentIndex : -1;
+  const windOutput = currentOutput.wind;
+  const percentageOfDemand = Math.round((currentOutput.wind / currentOutput.demand) * 100);
 
-  const windOutput = data.wind;
-  const percentageOfDemand = Math.round((data.wind / data.demand) * 100);
-
-  if ((!tweet || tweet.percentage < percentageOfDemand) &&
+  if ((!lastTeet || lastTeet.percentage < percentageOfDemand) &&
       mileStones.indexOf(percentageOfDemand) > -1) {
 
     return {
@@ -95,9 +92,8 @@ function tweet(tweet = false) {
     }
 
     const stat = config.appStats[newIndex];
-    const message = config.appStatsCopy(tweet, stat) + ` ${socialUrl} #BlownAway`;
+    const message = config.appStatsCopy(tweet, stat) + ` ${socialUrl} #wind`;
     storeAsLastTweet(tweet.percentage, newIndex, message);
-
 
     // /*jshint camelcase: false */
     // const client = new Twitter({

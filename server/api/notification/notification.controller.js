@@ -53,7 +53,7 @@ function buildRegistrationIDArray(ids) {
 }
 
 function sendNotifications(ids) {
-  const timeToLive = 3 * 3600; // 3 hours
+  const timeToLive = 1 * 3600; // 3 hours
 
   const options = {
       method: 'POST',
