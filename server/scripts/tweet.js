@@ -12,7 +12,6 @@ module.exports = {
 };
 
 const mileStones = [10, 12, 15, 18, 20, 22, 24, 25, 30, 35];
-/* TODO: use their social url */
 const socialUrl = 'http://bit.ly/winderful';
 
 function scheduleJobs() {
@@ -91,28 +90,36 @@ function tweet(tweet = false) {
       newIndex = 0;
     }
 
-    const stat = config.appStats[newIndex];
-    const message = config.appStatsCopy(tweet, stat) + ` ${socialUrl} #wind`;
+    // TODO: custom messages for tweets
+    // const stat = config.appStats[newIndex];
+    // const message = config.appStatsCopy(tweet, stat) + ` ${socialUrl} #wind`;
+    const message = `Right now #wind is meeting ${tweet.percentage}% of the ` +
+      `National Grid's electricity demand. ${socialUrl}`;
+
     storeAsLastTweet(tweet.percentage, newIndex, message);
 
-    // /*jshint camelcase: false */
-    // const client = new Twitter({
-    //   consumer_key: config.twitter.TWITTER_CONSUMER_KEY,
-    //   consumer_secret: config.twitter.TWITTER_CONSUMER_SECRET,
-    //   access_token_key: config.twitter.TWITTER_ACCESS_TOKEN_KEY,
-    //   access_token_secret: config.twitter.TWITTER_ACCESS_TOKEN_SECRET
-    // });
-    // /*jshint camelcase: true */
+    if (config.twitter.TWITTER_CONSUMER_KEY) {
+      /*jshint camelcase: false */
+      const twitterClient = new Twitter({
+        consumer_key: config.twitter.TWITTER_CONSUMER_KEY,
+        consumer_secret: config.twitter.TWITTER_CONSUMER_SECRET,
+        access_token_key: config.twitter.TWITTER_ACCESS_TOKEN_KEY,
+        access_token_secret: config.twitter.TWITTER_ACCESS_TOKEN_SECRET
+      });
+      /*jshint camelcase: true */
 
-    // client.post('statuses/update', { status: message }, function(error, tweets) {
-    //   if (!error) {
-    //     console.log(tweets);
-    //   } else {
-    //     console.log('error tweeting');
-    //   }
-    // });
+      twitterClient.post('statuses/update', { status: message }, function(error, tweets) {
+        if (!error) {
+          console.log(tweets);
+        } else {
+          console.log('error tweeting');
+        }
+      });
+    }
 
-    Notifications.sendToGroup();
+    if (config.notifications.authorization) {
+      Notifications.sendToGroup();
+    }
 
     return true;
   }
