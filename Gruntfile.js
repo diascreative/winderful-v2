@@ -861,10 +861,8 @@ self.addEventListener('push', function(event) {
         }
 
         return response.json().then(function(data) {
-          var percent = Math.round(100 * (data[0].wind / data[0].demand));
-
           var title = 'Winderful';
-          var message = 'Right now #wind is meeting ' + percent + '% of the National Grid\\'s electricity demand.';
+          var message = data[0].message;
           var icon = './android-chrome-512x512.png';
 
           return self.registration.showNotification(title, {

@@ -1,5 +1,6 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
+ * GET    /api/notifications:id           ->  index
  * POST    /api/notifications:id           ->  create
  * DELETE  /api/notifications/:id          ->  destroy
  */
@@ -9,8 +10,24 @@
 import request from 'request-promise';
 
 import config from '../../config/environment';
-import {Notification} from '../../sqldb';
+import {Tweets, Notification} from '../../sqldb';
 import Util from '../../util';
+
+// Gets last tweeted message
+// Keeps the messages and tweets in sync
+export function index(req, res) {
+  return Tweets.findAll({
+    attributes: ['message'],
+    limit: 1,
+    order: [
+      ['_id', 'DESC']
+    ]
+  })
+    .then(Util.handleEntityNotFound(res))
+    .then(Util.respondWithResult(res))
+    .catch(Util.handleError(res));
+}
+
 
 function removeEntity(res) {
   return function(entity) {
