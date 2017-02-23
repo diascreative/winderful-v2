@@ -16,16 +16,29 @@ import Util from '../../util';
 // Gets last tweeted message
 // Keeps the messages and tweets in sync
 export function index(req, res) {
-  return Tweets.findAll({
-    attributes: ['message'],
-    limit: 1,
-    order: [
-      ['_id', 'DESC']
-    ]
-  })
-    .then(Util.handleEntityNotFound(res))
+  const redisKey = 'last-tweet';
+
+  return Util.getCache(redisKey)
+    .then(getLatestTweet(redisKey))
     .then(Util.respondWithResult(res))
     .catch(Util.handleError(res));
+}
+
+function getLatestTweet(redisKey) {
+  return function(cached) {
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
+    return Tweets.findAll({
+      attributes: ['message'],
+      limit: 1,
+      order: [
+        ['_id', 'DESC']
+      ]
+    })
+      .then(Util.cacheResponse(redisKey, 3600));
+  }
 }
 
 

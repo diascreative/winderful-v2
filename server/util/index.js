@@ -5,12 +5,13 @@ import config from '../config/environment';
 import redisClient from '../redis';
 
 const Util = {
-  respondWithResult: respondWithResult,
-  handleEntityNotFound: handleEntityNotFound,
-  handleError: handleError,
-  getCache: getCache,
-  cacheResponse: cacheResponse,
-  clearCache: clearCache
+  respondWithResult,
+  handleEntityNotFound,
+  handleError,
+  getCache,
+  cacheResponse,
+  clearCacheItem,
+  clearCache
 };
 
 module.exports = Util;
@@ -69,6 +70,10 @@ function cacheResponse(redisKey=false, cacheExpiry=300) {
 
     return entity;
   }
+}
+
+function clearCacheItem(redisKey=false) {
+  redisClient.del(`${config.redis.key}::${redisKey}`);
 }
 
 function clearCache() {

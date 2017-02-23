@@ -3,9 +3,11 @@
 import schedule from 'node-schedule';
 import Twitter from 'twitter';
 
-import * as Notifications from '../api/notification/notification.controller';
-import {Output, Tweets} from '../sqldb';
 import config from '../config/environment';
+import * as Notifications from '../api/notification/notification.controller';
+import { Output, Tweets } from '../sqldb';
+import Util from '../util';
+
 
 module.exports = {
   scheduleJobs: scheduleJobs
@@ -15,8 +17,8 @@ const mileStones = [10, 12, 15, 18, 20, 22, 24, 25, 30, 35];
 const socialUrl = 'http://bit.ly/winderful';
 
 function scheduleJobs() {
-  // import data every hour
-  schedule.scheduleJob('0 * * * *', tweetScript);
+  // tweet every hour
+  schedule.scheduleJob('2 * * * *', tweetScript);
 }
 
 function tweetScript() {
@@ -97,6 +99,7 @@ function tweet(tweet = false) {
       `National Grid's electricity demand. ${socialUrl}`;
 
     storeAsLastTweet(tweet.percentage, newIndex, message);
+    Util.clearCacheItem('last-tweet');
 
     if (config.twitter.TWITTER_CONSUMER_KEY) {
       /*jshint camelcase: false */
