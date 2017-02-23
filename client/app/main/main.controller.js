@@ -349,6 +349,7 @@ class MainController {
   }
 
   getSocialCopy() {
+    return `Winderful - visualising UK's #windenergy in real time. Made by @diascreative`;
     let message = [
       'Right now wind is producing ',
       Math.round(100 * (this.currentOutput.wind / this.currentOutput.demand)),
