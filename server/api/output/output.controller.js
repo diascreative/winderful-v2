@@ -5,7 +5,7 @@
 
 'use strict';
 
-import {Output, sequelize} from '../../sqldb';
+import { Output, sequelize } from '../../sqldb';
 import Util from '../../util';
 
 // Gets a list of Outputs
@@ -57,7 +57,9 @@ function query(redisKey, req) {
     return Output.findAll({
         attributes: [
           [sequelize.fn('min', sequelize.col('datetime')), 'datetime'],
-          [sequelize.fn('date_format', sequelize.col('datetime'), groupTime), 'date_col_formed'],
+          [sequelize.fn('date_format', sequelize.col('datetime'), groupTime),
+            'date_col_formed'
+          ],
           [sequelize.fn('avg', sequelize.col('demand')), 'demand'],
           [sequelize.fn('avg', sequelize.col('wind')), 'wind']
         ],

@@ -45,7 +45,7 @@ function nightTweet() {
 function tweetScript() {
   return Promise.all([getLatest(), getLastTweet(), getLastTweetMessageIndex()])
     .then(checkData)
-    .then(tweet);
+    .then(tweet());
 }
 
 /**
@@ -114,14 +114,14 @@ function storeAsLastTweet(percentage, index, message) {
  * @param {any} [currentOutput, lastTeet, lastTweetIndex]
  * @returns
  */
-function checkData([currentOutput, lastTeet, lastTweetIndex]) {
+function checkData([currentOutput, lastTweet, lastTweetIndex]) {
   const storedIndex = lastTweetIndex ? lastTweetIndex.equivalentIndex : -1;
   const windOutput = currentOutput.wind;
   const percentageOfDemand = Math.round((currentOutput.wind / currentOutput.demand) * 100);
 
   // current wind production should hit a milestone
   // it should also be the largest demand that has hit a milestone today
-  if ((!lastTeet || lastTeet.percentage < percentageOfDemand) &&
+  if ((!lastTweet || lastTweet.percentage < percentageOfDemand) &&
       mileStones.indexOf(percentageOfDemand) > -1) {
 
     return {
