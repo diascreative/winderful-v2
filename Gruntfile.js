@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   var localConfig;
   try {
     localConfig = require('./server/config/local.env');
-  } catch(e) {
+  } catch (e) {
     localConfig = {};
   }
 
@@ -142,7 +142,9 @@ module.exports = function(grunt) {
         },
         src: ['<%= yeoman.server %>/**/*.{spec,integration}.js']
       },
-      all: ['<%= yeoman.client %>/{admin-app,app,components}/**/!(*.spec|*.mock|app.constant).js'],
+      all: [
+        '<%= yeoman.client %>/{admin-app,app,components}/**/!(*.spec|*.mock|app.constant).js'
+      ],
       test: {
         src: ['<%= yeoman.client %>/{admin-app,app,components}/**/*.{spec,mock}.js']
       }
@@ -181,7 +183,7 @@ module.exports = function(grunt) {
       options: {
         map: true,
         processors: [
-          require('autoprefixer')({browsers: ['last 4 version']})
+          require('autoprefixer')({ browsers: ['last 4 version'] })
         ]
       },
       dist: {
@@ -249,9 +251,9 @@ module.exports = function(grunt) {
       clientAdmin: {
         options: {
           exclude: [
-          'angular-leaflet-directive',
-          '/es5-shim/',
-          '/json3/'
+            'angular-leaflet-directive',
+            '/es5-shim/',
+            '/json3/'
           ]
         },
         src: '<%= yeoman.client %>/admin.html',
@@ -297,10 +299,14 @@ module.exports = function(grunt) {
         // This is so we update image references in our ng-templates
         patterns: {
           css: [
-            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images']
+            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm,
+              'Update the CSS to reference our revved images'
+            ]
           ],
           js: [
-            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm,
+              'Update the JS to reference our revved images'
+            ]
           ]
         }
       }
@@ -620,16 +626,16 @@ module.exports = function(grunt) {
           "include css": true
         },
         files: {
-          '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.styl',
-          '.tmp/app/critical.css' : '<%= yeoman.client %>/app/critical.styl',
-          '.tmp/admin-app/admin-app.css' : '<%= yeoman.client %>/admin-app/admin-app.styl'
+          '.tmp/app/app.css': '<%= yeoman.client %>/app/app.styl',
+          '.tmp/app/critical.css': '<%= yeoman.client %>/app/critical.styl',
+          '.tmp/admin-app/admin-app.css': '<%= yeoman.client %>/admin-app/admin-app.styl'
         }
       }
     },
 
     inline: {
       dist: {
-        options:{
+        options: {
           tag: 'critical',
           cssmin: true
         },
@@ -672,17 +678,17 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-               [
-                 '<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
-                 '!{.tmp,<%= yeoman.client %>}/app/app.{js,ts}'
-               ]
-            ],
-          '<%= yeoman.client %>/admin.html': [
-               [
-                 '<%= yeoman.client %>/admin-app/**/!(*.spec|*.mock).js',
-                 '!{.tmp,<%= yeoman.client %>}/admin-app/admin-app.{js,ts}'
-               ]
+            [
+              '<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
+              '!{.tmp,<%= yeoman.client %>}/app/app.{js,ts}'
             ]
+          ],
+          '<%= yeoman.client %>/admin.html': [
+            [
+              '<%= yeoman.client %>/admin-app/**/!(*.spec|*.mock).js',
+              '!{.tmp,<%= yeoman.client %>}/admin-app/admin-app.{js,ts}'
+            ]
+          ]
         }
       },
 
@@ -762,10 +768,10 @@ module.exports = function(grunt) {
               assets: {
                 windows80Ie10Tile: false,
                 windows10Ie11EdgeTiles: {
-                small: false,
-                medium: true,
-                big: false,
-                rectangle: false
+                  small: false,
+                  medium: true,
+                  big: false,
+                  rectangle: false
                 }
               }
             },
@@ -817,14 +823,12 @@ module.exports = function(grunt) {
 
     replace: {
       manifest: {
-        files: [
-          {
-            expand: true,
-            flatten: true,
-            src: ['<%= yeoman.dist %>/<%= yeoman.client %>/manifest.json'],
-            dest: '<%= yeoman.dist %>/<%= yeoman.client %>'
-          }
-        ],
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['<%= yeoman.dist %>/<%= yeoman.client %>/manifest.json'],
+          dest: '<%= yeoman.dist %>/<%= yeoman.client %>'
+        }],
         options: {
           patterns: [{
             match: /"display": "standalone"/,
@@ -837,14 +841,12 @@ module.exports = function(grunt) {
       },
 
       serviceWorker: {
-        files: [
-          {
-            expand: true,
-            flatten: true,
-            src: ['<%= yeoman.dist %>/<%= yeoman.client %>/service-worker.js'],
-            dest: '<%= yeoman.dist %>/<%= yeoman.client %>'
-          }
-        ],
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['<%= yeoman.dist %>/<%= yeoman.client %>/service-worker.js'],
+          dest: '<%= yeoman.dist %>/<%= yeoman.client %>'
+        }],
         options: {
           patterns: [{
             match: /'use strict';/,
@@ -966,11 +968,15 @@ self.addEventListener('notificationclick', function(event) {
 
   grunt.registerTask('serve', function(target) {
     if (target === 'dist-no-build') {
-      return grunt.task.run(['env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run(['env:all', 'env:prod', 'express:prod', 'wait', 'open',
+        'express-keepalive'
+      ]);
     }
 
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open',
+        'express-keepalive'
+      ]);
     }
 
     if (target === 'debug') {
@@ -1005,7 +1011,8 @@ self.addEventListener('notificationclick', function(event) {
   });
 
   grunt.registerTask('server', function() {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+    grunt.log.warn(
+      'The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
 
@@ -1017,9 +1024,7 @@ self.addEventListener('notificationclick', function(event) {
         'mochaTest:unit',
         'mochaTest:integration'
       ]);
-    }
-
-    else if (target === 'client') {
+    } else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
         'env:all',
@@ -1030,9 +1035,7 @@ self.addEventListener('notificationclick', function(event) {
         'wiredep:test',
         'karma'
       ]);
-    }
-
-    else if (target === 'e2e') {
+    } else if (target === 'e2e') {
 
       if (option === 'prod') {
         return grunt.task.run([
@@ -1042,9 +1045,7 @@ self.addEventListener('notificationclick', function(event) {
           'express:prod',
           'protractor'
         ]);
-      }
-
-      else {
+      } else {
         return grunt.task.run([
           'clean:server',
           'env:all',
@@ -1059,9 +1060,7 @@ self.addEventListener('notificationclick', function(event) {
           'protractor'
         ]);
       }
-    }
-
-    else if (target === 'coverage') {
+    } else if (target === 'coverage') {
 
       if (option === 'unit') {
         return grunt.task.run([
@@ -1069,23 +1068,17 @@ self.addEventListener('notificationclick', function(event) {
           'env:test',
           'mocha_istanbul:unit'
         ]);
-      }
-
-      else if (option === 'integration') {
+      } else if (option === 'integration') {
         return grunt.task.run([
           'env:all',
           'env:test',
           'mocha_istanbul:integration'
         ]);
-      }
-
-      else if (option === 'check') {
+      } else if (option === 'check') {
         return grunt.task.run([
           'istanbul_check_coverage'
         ]);
-      }
-
-      else {
+      } else {
         return grunt.task.run([
           'env:all',
           'env:test',
@@ -1094,9 +1087,7 @@ self.addEventListener('notificationclick', function(event) {
         ]);
       }
 
-    }
-
-    else grunt.task.run([
+    } else grunt.task.run([
       'test:server',
       'test:client'
     ]);

@@ -1,0 +1,12 @@
+{
+  "end_with_newline": true,
+  "indent_size": 2,
+  "indent_with_tabs": false,
+  "wrap_line_length": 100,
+  "js": {
+    "brace_style": "collapse, expand",
+    "keep_array_indentation": false,
+    "space_after_anon_function": false,
+    "operator_position": "after-newline"
+  }
+}

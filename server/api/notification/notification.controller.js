@@ -10,7 +10,7 @@
 import request from 'request-promise';
 
 import config from '../../config/environment';
-import {Tweets, Notification} from '../../sqldb';
+import { Tweets, Notification } from '../../sqldb';
 import Util from '../../util';
 
 // Gets last tweeted message
@@ -31,12 +31,12 @@ function getLatestTweet(redisKey) {
     }
 
     return Tweets.findAll({
-      attributes: ['message'],
-      limit: 1,
-      order: [
-        ['_id', 'DESC']
-      ]
-    })
+        attributes: ['message'],
+        limit: 1,
+        order: [
+          ['_id', 'DESC']
+        ]
+      })
       .then(Util.cacheResponse(redisKey, 3600));
   }
 }
@@ -56,8 +56,8 @@ function removeEntity(res) {
 // Creates a new Notification in the DB
 export function create(req, res) {
   return Notification.create({
-    gcmId: req.params.id
-  })
+      gcmId: req.params.id
+    })
     .then(Util.respondWithResult(res, 201))
     .catch(Util.handleError(res));
 }
@@ -65,10 +65,10 @@ export function create(req, res) {
 // Deletes a Notification from the DB
 export function destroy(req, res) {
   return Notification.find({
-    where: {
-      gcmId: req.params.id
-    }
-  })
+      where: {
+        gcmId: req.params.id
+      }
+    })
     .then(Util.handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(Util.handleError(res));
@@ -86,20 +86,20 @@ function sendNotifications(ids) {
   const timeToLive = 1 * 3600; // 3 hours
 
   const options = {
-      method: 'POST',
-      uri: 'https://fcm.googleapis.com/fcm/send',
-      body: {
-        /*jshint camelcase: false */
-        // time to live is set to 1h
-        registration_ids: ids,
-        time_to_live: timeToLive
-        /*jshint camelcase: true */
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'key='  + config.notifications.authorization
-      },
-      json: true
+    method: 'POST',
+    uri: 'https://fcm.googleapis.com/fcm/send',
+    body: {
+      /*jshint camelcase: false */
+      // time to live is set to 1h
+      registration_ids: ids,
+      time_to_live: timeToLive
+      /*jshint camelcase: true */
+    },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'key=' + config.notifications.authorization
+    },
+    json: true
   };
 
   return request(options)

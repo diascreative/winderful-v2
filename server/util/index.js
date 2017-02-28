@@ -61,7 +61,7 @@ function getCache(redisKey) {
  * @param  {Number}  cacheExpiry
  * @return {Array} Respose
  */
-function cacheResponse(redisKey=false, cacheExpiry=300) {
+function cacheResponse(redisKey = false, cacheExpiry = 300) {
   return function(entity) {
     if (redisKey && entity) {
       redisClient.set(`${config.redis.key}::${redisKey}`, JSON.stringify(entity));
@@ -72,7 +72,7 @@ function cacheResponse(redisKey=false, cacheExpiry=300) {
   }
 }
 
-function clearCacheItem(redisKey=false) {
+function clearCacheItem(redisKey = false) {
   redisClient.del(`${config.redis.key}::${redisKey}`);
 }
 
