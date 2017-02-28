@@ -217,6 +217,17 @@
       this._cacheData('historicalRange', range);
 
       this._getHistoricData();
+
+      if (typeof window.ga !== 'undefined') {
+        const dateChangedEvent = {
+          hitType: 'event',
+          eventCategory: 'dates',
+          eventAction: 'change',
+          eventLabel: this.historicalRange
+        };
+
+        window.ga('send', dateChangedEvent);
+      }
     }
 
     powerToSpeed(output) {
