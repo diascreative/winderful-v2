@@ -854,7 +854,7 @@ module.exports = function(grunt) {
               return `'use strict';
 
 self.addEventListener('push', function(event) {
-  var apiPath = '/api/outputs/?count=1';
+  var apiPath = '/api/notifications/';
 
   event.waitUntil(registration.pushManager.getSubscription().then(function(subscription) {
       return fetch(apiPath).then(function(response) {
